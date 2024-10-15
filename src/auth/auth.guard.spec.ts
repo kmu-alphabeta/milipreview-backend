@@ -28,18 +28,7 @@ describe('Guard', () => {
     expect(registerAuthGuard).toBeDefined();
   });
 
-  it('should guard', async () => {
-    let registered = {
-      switchToHttp: () => ({
-        getRequest: () => ({
-          headers: {
-            authorization:
-              'Bearer ' +
-              jwtService.sign({ id: BigInt(1), type: 'kakao', value: '1234' }),
-          },
-        }),
-      }),
-    };
+  it('should handle not registered user', async () => {
     let notRegistered = {
       switchToHttp: () => ({
         getRequest: () => ({
@@ -52,22 +41,26 @@ describe('Guard', () => {
       }),
     };
 
-    expect(await authGuard.canActivate(registered as any)).toBe(true);
-    expect(await registerAuthGuard.canActivate(notRegistered as any)).toBe(
+    expect(authGuard.canActivate(notRegistered as any)).rejects.toThrow();
+    expect(registerAuthGuard.canActivate(notRegistered as any)).resolves.toBe(
       true,
     );
+  });
 
-    try {
-      await authGuard.canActivate(notRegistered as any);
-      expect(true).toBe(false);
-    } catch (e) {
-      expect(e).toBeInstanceOf(UnauthorizedException);
-    }
-    try {
-      await registerAuthGuard.canActivate(registered as any);
-      expect(true).toBe(false);
-    } catch (e) {
-      expect(e).toBeInstanceOf(UnauthorizedException);
-    }
+  it('should handle registered user', async () => {
+    let registered = {
+      switchToHttp: () => ({
+        getRequest: () => ({
+          headers: {
+            authorization:
+              'Bearer ' +
+              jwtService.sign({ id: BigInt(1), type: 'kakao', value: '1234' }),
+          },
+        }),
+      }),
+    };
+
+    expect(authGuard.canActivate(registered as any)).resolves.toBe(true);
+    expect(registerAuthGuard.canActivate(registered as any)).rejects.toThrow();
   });
 });
