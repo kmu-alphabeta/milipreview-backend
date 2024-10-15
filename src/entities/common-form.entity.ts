@@ -1,7 +1,7 @@
 import {
   BigIntType,
   Entity,
-  ManyToOne,
+  OneToOne,
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
@@ -11,10 +11,11 @@ import { User } from './user.entity';
 export class CommonForm {
   @PrimaryKey({
     type: new BigIntType('bigint'),
+    autoincrement: true,
   })
   id!: bigint;
 
-  @ManyToOne(() => User)
+  @OneToOne(() => User)
   user: User;
 
   @Property({
@@ -86,4 +87,9 @@ export class CommonForm {
     type: 'boolean',
   })
   medicalApply!: boolean;
+
+  @Property({
+    type: 'boolean',
+  })
+  is_livelihood_recipient!: boolean;
 }

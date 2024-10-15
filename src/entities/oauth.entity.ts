@@ -1,7 +1,7 @@
 import {
   BigIntType,
   Entity,
-  ManyToOne,
+  OneToOne,
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
@@ -14,7 +14,7 @@ export class Oauth {
   })
   id!: bigint;
 
-  @ManyToOne(() => User)
+  @OneToOne(() => User)
   user: User;
 
   @Property({
