@@ -3,10 +3,10 @@ import {
   Cascade,
   Collection,
   Entity,
-  OneToMany,
+  OneToMany, OneToOne,
   PrimaryKey,
-  Property,
-} from '@mikro-orm/core';
+  Property
+} from "@mikro-orm/core";
 import { Oauth } from './oauth.entity';
 import { History } from './history.entity';
 import { CommonForm } from './common-form.entity';
@@ -58,12 +58,12 @@ export class User {
   })
   applicantRegionOffice!: string;
 
-  @OneToMany(() => Oauth, (attr) => attr.user, { cascade: [Cascade.ALL] })
+  @OneToOne(() => Oauth, (attr) => attr.user, { cascade: [Cascade.ALL] })
   oauths = new Collection<Oauth>(this);
 
   @OneToMany(() => History, (attr) => attr.user, { cascade: [Cascade.ALL] })
   histories = new Collection<History>(this);
 
-  @OneToMany(() => CommonForm, (attr) => attr.user, { cascade: [Cascade.ALL] })
+  @OneToOne(() => CommonForm, (attr) => attr.user, { cascade: [Cascade.ALL] })
   commonForms = new Collection<CommonForm>(this);
 }

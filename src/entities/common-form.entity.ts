@@ -1,10 +1,10 @@
 import {
   BigIntType,
   Entity,
-  ManyToOne,
+  OneToOne,
   PrimaryKey,
-  Property,
-} from '@mikro-orm/core';
+  Property
+} from "@mikro-orm/core";
 import { User } from './user.entity';
 
 @Entity()
@@ -14,7 +14,7 @@ export class CommonForm {
   })
   id!: bigint;
 
-  @ManyToOne(() => User)
+  @OneToOne(() => User)
   user: User;
 
   @Property({
