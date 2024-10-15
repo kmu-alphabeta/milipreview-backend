@@ -3,8 +3,8 @@ import {
   Entity,
   OneToOne,
   PrimaryKey,
-  Property
-} from "@mikro-orm/core";
+  Property,
+} from '@mikro-orm/core';
 import { User } from './user.entity';
 
 @Entity()
@@ -86,4 +86,9 @@ export class CommonForm {
     type: 'boolean',
   })
   medicalApply!: boolean;
+
+  @Property({
+    type: 'boolean',
+  })
+  is_livelihood_recipient!: boolean;
 }
