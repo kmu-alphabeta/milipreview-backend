@@ -11,6 +11,7 @@ import { User } from './user.entity';
 export class CommonForm {
   @PrimaryKey({
     type: new BigIntType('bigint'),
+    autoincrement: true,
   })
   id!: bigint;
 

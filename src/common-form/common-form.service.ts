@@ -8,7 +8,8 @@ export class CommonFormService {
   async create(
     id: bigint,
     createCommonFormDto: CreateCommonFormDto,
-  ): Promise<void> {
+  ): Promise<bigint> {
+    return BigInt(id);
     // return 'This action adds a new commonForm';
   }
 
