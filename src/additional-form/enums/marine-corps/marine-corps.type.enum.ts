@@ -1,0 +1,8 @@
+export enum MarineCorpsTypeEnum {
+  GENERAL = 'GENERAL', // 일반
+  SEARCH = 'SEARCH', // 수색
+  CHEMICAL = 'CHEMICAL', // 화학
+  COMBAT_ENGINEER = 'COMBAT_ENGINEER', // 공병
+  WEAPON_MAINTENANCE = 'WEAPON_MAINTENANCE', // 무기정비
+  TRANSPORTATION = 'TRANSPORTATION', // 수송
+}
