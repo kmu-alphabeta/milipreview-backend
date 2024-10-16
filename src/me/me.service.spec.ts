@@ -7,7 +7,6 @@ import { User } from '../entities/user.entity';
 import { Oauth } from '../entities/oauth.entity';
 import { History } from '../entities/history.entity';
 import { CommonForm } from '../entities/common-form.entity';
-import { find } from 'rxjs';
 
 describe('MeService', () => {
   let service: MeService;
