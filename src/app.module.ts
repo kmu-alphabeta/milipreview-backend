@@ -7,6 +7,7 @@ import { CommonFormModule } from './common-form/common-form.module';
 import { AdditionalFormModule } from './additional-form/additional-form.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { MeModule } from './me/me.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ConfigModule } from '@nestjs/config';
     AuthModule,
     CommonFormModule,
     AdditionalFormModule,
+    MeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
