@@ -11,6 +11,7 @@ import { MeModule } from './me/me.module';
 import { HistoryController } from './history/history.controller';
 import { HistoryService } from './history/history.service';
 import { HistoryModule } from './history/history.module';
+import { PredictionModule } from './prediction/prediction.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { HistoryModule } from './history/history.module';
     AdditionalFormModule,
     MeModule,
     HistoryModule,
+    PredictionModule,
   ],
   controllers: [AppController, HistoryController],
   providers: [AppService, HistoryService],
