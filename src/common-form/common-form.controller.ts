@@ -16,33 +16,34 @@ export class CommonFormController {
   constructor(private readonly commonFormService: CommonFormService) {}
 
   @Post(':id')
-  create(
+  async create(
     @Param('id') id: string,
     @Body() createCommonFormDto: CreateCommonFormDto,
   ) {
-    return this.commonFormService.create(BigInt(+id), createCommonFormDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.commonFormService.findAll();
+    return await this.commonFormService.create(
+      BigInt(+id),
+      createCommonFormDto,
+    );
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.commonFormService.findOne(BigInt(+id));
+  async findOne(@Param('id') id: string) {
+    return await this.commonFormService.findOne(BigInt(+id));
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateCommonFormDto: UpdateCommonFormDto,
   ) {
-    return this.commonFormService.update(BigInt(+id), updateCommonFormDto);
+    return await this.commonFormService.update(
+      BigInt(+id),
+      updateCommonFormDto,
+    );
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.commonFormService.remove(BigInt(+id));
+  async remove(@Param('id') id: string) {
+    return await this.commonFormService.remove(BigInt(+id));
   }
 }
