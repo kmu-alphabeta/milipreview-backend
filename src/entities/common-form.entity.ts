@@ -6,9 +6,45 @@ import {
   Property,
 } from '@mikro-orm/core';
 import { User } from './user.entity';
+import { CreateCommonFormDto } from '../common-form/dto/create-common-form.dto';
+import { UpdateCommonFormDto } from '../common-form/dto/update-common-form.dto';
 
 @Entity()
 export class CommonForm {
+  constructor();
+  constructor(user: User, createCommonFormDto: CreateCommonFormDto);
+
+  constructor(user?: User, createCommonFormDto?: CreateCommonFormDto) {
+    if (!user || !createCommonFormDto) {
+      return;
+    }
+
+    this.user = user;
+    this.careerMonths = createCommonFormDto.careerMonths;
+    this.hsAbsenceDays = createCommonFormDto.hsAbsenceDays;
+    this.techCertificates = createCommonFormDto.techCertificates;
+    this.majorDepartment = createCommonFormDto.majorDepartment;
+    this.volunteerScore = createCommonFormDto.volunteerScore;
+    this.bloodDonation = createCommonFormDto.bloodDonation;
+    this.nationalMerit = createCommonFormDto.nationalMerit;
+    this.independenceMerit = createCommonFormDto.independenceMerit;
+    this.corpExpScore = createCommonFormDto.corpExpScore;
+    this.indivExpScore = createCommonFormDto.indivExpScore;
+    this.multiChildScore = createCommonFormDto.multiChildScore;
+    this.careerApply = createCommonFormDto.careerApply;
+    this.overseasApply = createCommonFormDto.overseasApply;
+    this.medicalApply = createCommonFormDto.medicalApply;
+    this.is_livelihood_recipient = createCommonFormDto.is_livelihood_recipient;
+  }
+
+  update(updateCommonFormDto: UpdateCommonFormDto) {
+    Object.entries(updateCommonFormDto).forEach(([key, value]) => {
+      if (value !== undefined) {
+        this[key] = value;
+      }
+    });
+  }
+
   @PrimaryKey({
     type: new BigIntType('bigint'),
     autoincrement: true,
