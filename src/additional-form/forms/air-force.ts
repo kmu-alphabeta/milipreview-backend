@@ -11,16 +11,15 @@ export const getAirForceForm = (detail: AirForceTypeEnum) => {
           ...(detail === AirForceTypeEnum.VEHICLE_DRIVING
             ? { '대형,특수': 50, '1종보통': 45, '2종보통(수동)': 40 }
             : {}),
-          기사이상: (() => (detail === AirForceTypeEnum.GENERAL ? 70 : 50))(),
-          산업기사: (() => (detail === AirForceTypeEnum.GENERAL ? 68 : 45))(),
-          기능사: (() => (detail === AirForceTypeEnum.GENERAL ? 66 : 40))(),
-          'L6,L5': (() => (detail === AirForceTypeEnum.GENERAL ? 70 : 50))(),
-          'L4,L3': (() => (detail === AirForceTypeEnum.GENERAL ? 68 : 45))(),
-          L2: (() => (detail === AirForceTypeEnum.GENERAL ? 66 : 40))(),
-          공인자격증: (() => (detail === AirForceTypeEnum.GENERAL ? 64 : 30))(),
-          일반자격증: (() => (detail === AirForceTypeEnum.GENERAL ? 62 : 26))(),
-          자격증미소지: (() =>
-            detail === AirForceTypeEnum.GENERAL ? 60 : 20)(),
+          기사이상: detail === AirForceTypeEnum.GENERAL ? 70 : 50,
+          산업기사: detail === AirForceTypeEnum.GENERAL ? 68 : 45,
+          기능사: detail === AirForceTypeEnum.GENERAL ? 66 : 40,
+          'L6,L5': detail === AirForceTypeEnum.GENERAL ? 70 : 50,
+          'L4,L3': detail === AirForceTypeEnum.GENERAL ? 68 : 45,
+          L2: detail === AirForceTypeEnum.GENERAL ? 66 : 40,
+          공인자격증: detail === AirForceTypeEnum.GENERAL ? 64 : 30,
+          일반자격증: detail === AirForceTypeEnum.GENERAL ? 62 : 26,
+          자격증미소지: detail === AirForceTypeEnum.GENERAL ? 60 : 20,
         },
       },
       ...(detail === AirForceTypeEnum.GENERAL

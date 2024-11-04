@@ -11,51 +11,51 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
           ...(detail === MarineCorpsTypeEnum.TRANSPORTATION
             ? { '대형,특수': 50, '1종보통': 45 }
             : {}),
-          기사이상: (() =>
+          기사이상:
             detail === MarineCorpsTypeEnum.GENERAL ||
             detail === MarineCorpsTypeEnum.SEARCH
               ? 70
-              : 50)(),
-          산업기사: (() =>
+              : 50,
+          산업기사:
             detail === MarineCorpsTypeEnum.GENERAL ||
             detail === MarineCorpsTypeEnum.SEARCH
               ? 68
-              : 45)(),
-          기능사: (() =>
+              : 45,
+          기능사:
             detail === MarineCorpsTypeEnum.GENERAL ||
             detail === MarineCorpsTypeEnum.SEARCH
               ? 66
-              : 40)(),
-          'L6,L5': (() =>
+              : 40,
+          'L6,L5':
             detail === MarineCorpsTypeEnum.GENERAL ||
             detail === MarineCorpsTypeEnum.SEARCH
               ? 70
-              : 50)(),
-          'L4,L3': (() =>
+              : 50,
+          'L4,L3':
             detail === MarineCorpsTypeEnum.GENERAL ||
             detail === MarineCorpsTypeEnum.SEARCH
               ? 68
-              : 45)(),
-          L2: (() =>
+              : 45,
+          L2:
             detail === MarineCorpsTypeEnum.GENERAL ||
             detail === MarineCorpsTypeEnum.SEARCH
               ? 66
-              : 40)(),
-          공인자격증: (() =>
+              : 40,
+          공인자격증:
             detail === MarineCorpsTypeEnum.GENERAL ||
             detail === MarineCorpsTypeEnum.SEARCH
               ? 64
-              : 30)(),
-          일반자격증: (() =>
+              : 30,
+          일반자격증:
             detail === MarineCorpsTypeEnum.GENERAL ||
             detail === MarineCorpsTypeEnum.SEARCH
               ? 62
-              : 26)(),
-          자격증미소지: (() =>
+              : 26,
+          자격증미소지:
             detail === MarineCorpsTypeEnum.GENERAL ||
             detail === MarineCorpsTypeEnum.SEARCH
               ? 60
-              : 20)(),
+              : 20,
         },
       },
       ...(detail === MarineCorpsTypeEnum.GENERAL ||
