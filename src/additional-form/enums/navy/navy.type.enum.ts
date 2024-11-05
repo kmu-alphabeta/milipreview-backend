@@ -1,14 +1,14 @@
 export enum NavyTypeEnum {
-  GENERAL = 'GENERAL', // 일반
-  COMPUTER = 'COMPUTER', // 전산
-  COOK = 'COOK', // 조리
-  AVIATION = 'AVIATION', // 항공
-  ELECTRONIC = 'ELECTRONIC', // 전자
-  COMMUNICATION = 'COMMUNICATION', // 통신
-  MECHANICAL = 'MECHANICAL', // 기관
-  CBR = 'CBR', // 화생방
-  ELECTRICAL = 'ELECTRICAL', // 전기
-  ARCHITECTURE_CIVIL_ENGINEERING = 'ARCHITECTURE_CIVIL_ENGINEERING', // 건축토목
-  TRANSPORTATION = 'TRANSPORTATION', // 수송
-  MEDICAL = 'MEDICAL', // 의무
+  GENERAL = '일반', // 일반
+  COMPUTER = '전산', // 전산
+  COOK = '조리', // 조리
+  AVIATION = '항공', // 항공
+  ELECTRONIC = '전자', // 전자
+  COMMUNICATION = '통신', // 통신
+  MECHANICAL = '기관', // 기관
+  CBR = '화생방', // 화생방
+  ELECTRICAL = '전기', // 전기
+  ARCHITECTURE_CIVIL_ENGINEERING = '건축토목', // 건축토목
+  TRANSPORTATION = '수송', // 수송
+  MEDICAL = '의무', // 의무
 }

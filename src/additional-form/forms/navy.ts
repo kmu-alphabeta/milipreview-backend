@@ -2,7 +2,7 @@ import { NavyTypeEnum } from '../enums/navy/navy.type.enum';
 
 export const getNavyForm = (detail: NavyTypeEnum) => {
   return {
-    militaryType: `해군/${detail === NavyTypeEnum.GENERAL ? '일반' : '전문'}`,
+    militaryType: `해군/${detail}`,
     form: [
       {
         name: '자격증',

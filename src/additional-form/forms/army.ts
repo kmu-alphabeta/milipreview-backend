@@ -2,7 +2,7 @@ import { ArmyTypeEnum } from '../enums/army/army.type.enum';
 
 export const getArmyForm = (detail: ArmyTypeEnum) => {
   return {
-    militaryType: '육군',
+    militaryType: `육군/${detail}`,
     form: [
       {
         name: '자격증',
