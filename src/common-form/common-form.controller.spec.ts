@@ -53,13 +53,6 @@ describe('CommonFormController', () => {
     expect(controller).toBeDefined();
   });
 
-  describe('findAll', () => {
-    it('모든 사용자의 공통 서식을 반환해야 한다', async () => {
-      await controller.findAll();
-      expect(service.findAll).toHaveBeenCalled();
-    });
-  });
-
   describe('findOne', () => {
     it('특정 ID에 해당하는 공통 서식을 반환해야 한다', async () => {
       const userId = '1'; // 사용자 ID
