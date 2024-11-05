@@ -2,7 +2,7 @@ import { MarineCorpsTypeEnum } from '../enums/marine-corps/marine-corps.type.enu
 
 export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
   return {
-    militaryType: '해병대',
+    militaryType: `해병대/${detail === MarineCorpsTypeEnum.GENERAL || detail === MarineCorpsTypeEnum.SEARCH ? '일반' : '전문'}`,
     form: [
       {
         name: '자격증',

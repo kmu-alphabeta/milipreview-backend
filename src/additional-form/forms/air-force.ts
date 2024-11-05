@@ -2,7 +2,7 @@ import { AirForceTypeEnum } from '../enums/air-force/air-force.type.enum';
 
 export const getAirForceForm = (detail: AirForceTypeEnum) => {
   return {
-    militaryType: '공군',
+    militaryType: `공군/${detail === AirForceTypeEnum.GENERAL ? '일반' : '전문'}`,
     form: [
       {
         name: '자격증',
