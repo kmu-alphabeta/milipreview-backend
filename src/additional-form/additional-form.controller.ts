@@ -16,18 +16,7 @@ export class AdditionalFormController {
   findMilitaryTypes(
     @Param('military') military: string,
   ): Record<string, string> {
-    switch (military.toUpperCase()) {
-      case 'ARMY':
-        return this.additionalFormService.findArmyTypes();
-      case 'NAVY':
-        return this.additionalFormService.findNavyTypes();
-      case 'AIR_FORCE':
-        return this.additionalFormService.findAirForceTypes();
-      case 'MARINE_CORPS':
-        return this.additionalFormService.findMarinesTypes();
-      default:
-        throw new Error('Invalid military type: ' + military);
-    }
+    return this.additionalFormService.findMilitaryTypes(military.toUpperCase());
   }
 
   // 군종별 + 모집단위별 추가 서식 가져오기

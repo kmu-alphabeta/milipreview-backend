@@ -15,20 +15,19 @@ export class AdditionalFormService {
     return this.getEntriesToRecord(MilitaryTypeEnum);
   }
 
-  findArmyTypes(): Record<string, string> {
-    return this.getEntriesToRecord(ArmyTypeEnum);
-  }
-
-  findNavyTypes(): Record<string, string> {
-    return this.getEntriesToRecord(NavyTypeEnum);
-  }
-
-  findAirForceTypes(): Record<string, string> {
-    return this.getEntriesToRecord(AirForceTypeEnum);
-  }
-
-  findMarinesTypes(): Record<string, string> {
-    return this.getEntriesToRecord(MarineCorpsTypeEnum);
+  findMilitaryTypes(military: string): Record<string, string> {
+    switch (military as keyof typeof MilitaryTypeEnum) {
+      case 'ARMY':
+        return this.getEntriesToRecord(ArmyTypeEnum);
+      case 'NAVY':
+        return this.getEntriesToRecord(NavyTypeEnum);
+      case 'AIR_FORCE':
+        return this.getEntriesToRecord(AirForceTypeEnum);
+      case 'MARINE_CORPS':
+        return this.getEntriesToRecord(MarineCorpsTypeEnum);
+      default:
+        throw new Error('Invalid military type: ' + military);
+    }
   }
 
   findAdditionalForm(military: string, detail: string) {
@@ -46,7 +45,7 @@ export class AdditionalFormService {
           MarineCorpsTypeEnum[detail as keyof typeof MarineCorpsTypeEnum],
         );
       default:
-        throw new Error('Invalid military type: ' + military + ' ' + detail);
+        throw new Error(`Invalid military type: ${military} ${detail}`);
     }
   }
 
