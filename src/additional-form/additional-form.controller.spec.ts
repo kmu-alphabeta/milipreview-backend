@@ -58,16 +58,18 @@ describe('AdditionalFormController', () => {
 
     it('군종별 + 모집단위 요청에 해당하는 추가 서식을 반환해야 한다', () => {
       const result = 'This action returns all army infantry types';
-      jest.spyOn(service, 'findMilitaryTypes').mockImplementation(() => result);
+      jest.spyOn(service, 'findAdditionalForm').mockImplementation(() => result);
 
-      expect(controller.findMilitaryTypes('army', 'infantry')).toBe(result);
+      expect(controller.findAdditionalForm('army', 'infantry')).toBe(result);
     });
   });
 
   it('비정상 요청 - 없는 군종/모집단위를 요청하면 에러를 반환해야 한다', () => {
     const result = 'This action returns all test test types';
-    jest.spyOn(service, 'findMilitaryTypes').mockImplementation(() => result);
+    jest.spyOn(service, 'findAdditionalForm').mockImplementation(() => result);
 
-    expect(controller.findMilitaryTypes('test', 'test')).rejects.toThrow(result);
+    expect(controller.findAdditionalForm('test', 'test')).rejects.toThrow(
+      result,
+    );
   });
 });

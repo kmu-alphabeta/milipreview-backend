@@ -47,22 +47,22 @@ describe('AdditionalFormService', () => {
 
   describe('비정상 요청 - 존재하지 않는 enum 값으로 요청', () => {
     it('존재하지 않는 군종 반환 - 없는 군종', () => {
-      const result = service.findMilitaryTypes('test', 'test');
+      const result = service.findAdditionalForm('test', 'test');
       expect(result).rejects.toThrow('This action returns all test test types');
     });
 
     it('존재하지 않는 군종 반환 - 없는 모집단위 (육군)', () => {
-      const result = service.findMilitaryTypes(MilitaryTypeEnum.ARMY, 'test');
+      const result = service.findAdditionalForm(MilitaryTypeEnum.ARMY, 'test');
       expect(result).rejects.toThrow('This action returns all army test types');
     });
 
     it('존재하지 않는 군종 반환 - 없는 모집단위 (해군)', () => {
-      const result = service.findMilitaryTypes(MilitaryTypeEnum.NAVY, 'test');
+      const result = service.findAdditionalForm(MilitaryTypeEnum.NAVY, 'test');
       expect(result).rejects.toThrow('This action returns all navy test types');
     });
 
     it('존재하지 않는 군종 반환 - 없는 모집단위 (공군)', () => {
-      const result = service.findMilitaryTypes(
+      const result = service.findAdditionalForm(
         MilitaryTypeEnum.AIR_FORCE,
         'test',
       );
@@ -72,7 +72,7 @@ describe('AdditionalFormService', () => {
     });
 
     it('존재하지 않는 군종 반환 - 없는 모집단위 (해병대)', () => {
-      const result = service.findMilitaryTypes(
+      const result = service.findAdditionalForm(
         MilitaryTypeEnum.MARINE_CORPS,
         'test',
       );
