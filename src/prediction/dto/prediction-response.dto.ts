@@ -1,6 +1,10 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class PredictionResponseDto {
-    predictedCutoff: number;  
-    isPassed: boolean;        
-    probability: number;      
-  }
-  
+  @ApiProperty()
+  predictedCutoff: number;
+  @ApiProperty()
+  isPassed: boolean;
+  @ApiProperty()
+  probability: number;
+}

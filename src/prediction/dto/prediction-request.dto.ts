@@ -1,7 +1,12 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class PredictionRequestDto {
-    year: number;             
-    month: number;            
-    category: string;         
-    score: number;            
-  }
-  
+  @ApiProperty()
+  year: number;
+  @ApiProperty()
+  month: number;
+  @ApiProperty()
+  category: string;
+  @ApiProperty()
+  score: number;
+}
