@@ -10,6 +10,13 @@ const config: Options = {
   user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASS,
   driver: PostgreSqlDriver,
+  driverOptions: {
+    connection: {
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    },
+  },
 };
 
 export default config;
