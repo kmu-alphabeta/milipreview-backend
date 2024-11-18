@@ -4,51 +4,30 @@ import { History } from '../entities/history.entity';
 import { User } from '../entities/user.entity';
 import { HistoryCreateDto } from './dto/history-create.dto';
 import { HistoryResponseDto } from './dto/history-response.dto';
+import { InjectRepository } from '@mikro-orm/nestjs';
+import { EntityRepository } from '@mikro-orm/postgresql';
 
 @Injectable()
 export class HistoryService {
   constructor(
-    private readonly em: EntityManager,
+    @InjectRepository(History)
+    private readonly historyRepository: EntityRepository<History>,
   ) {}
 
   // 예측 히스토리 생성
-  async createHistory(dto: HistoryCreateDto): Promise<HistoryResponseDto> {
-    const user = await this.em.findOne(User, { id: dto.userId });
-    if (!user) {
-      throw new NotFoundException(`User with ID ${dto.userId} not found`);
-    }
-
-    const history = new History();
-    history.user = user;
-    history.score = dto.score;
-    history.predictedScore = dto.predictedScore;
-    history.predictedPercent = dto.predictedPercent;
-
-    await this.em.persistAndFlush(history);
-
-    return {
-      id: history.id,
-      userId: user.id,
-      score: history.score,
-      predictedScore: history.predictedScore,
-      predictedPercent: history.predictedPercent,
-    };
+  async createHistory(userId: bigint, dto: HistoryCreateDto): Promise<bigint> {
+    return await this.historyRepository.insert({
+      ...dto,
+      user: userId,
+    });
   }
 
   // 예측 히스토리 조회
-  async getHistoryByUserId(userId: bigint): Promise<HistoryResponseDto[]> {
-    const user = await this.em.findOne(User, { id: userId });
-    if (!user) {
-      throw new NotFoundException(`User with ID ${userId} not found`);
-    }
-
-    const histories = await this.em.find(History, { user: user });
-    return histories.map((history) => ({
-      id: history.id,
-      userId: user.id,
-      score: history.score,
-      predictedScore: history.predictedScore,
-      predictedPercent: history.predictedPercent,
-    }));
+  async getHistoryByUserId(userId: bigint): Promise<History[]> {
+    return await this.historyRepository.findAll({
+      where: {
+        user: userId,
+      },
+    });
   }
 }

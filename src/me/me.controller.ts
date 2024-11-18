@@ -9,8 +9,8 @@ import {
 import { AuthGuard, AuthRequest } from '../auth/auth.guard';
 import { MeService } from './me.service';
 import { UpdateInfoBodyDto } from './dtos/update.dto';
-import { ApiResponse } from "@nestjs/swagger";
-import { User } from "../entities/user.entity";
+import { ApiResponse } from '@nestjs/swagger';
+import { User } from '../entities/user.entity';
 
 @UseGuards(AuthGuard)
 @Controller('me')
@@ -21,15 +21,15 @@ export class MeController {
     type: User,
   })
   @Get()
-  async getMyInfo(@Request() req: AuthRequest) {
-    return await this.meService.getMyInfo(req.user);
+  async getMyInfo(@Request() { user }: AuthRequest) {
+    return await this.meService.getMyInfo(user);
   }
 
   @Patch()
   async updateMyInfo(
-    @Request() req: AuthRequest,
+    @Request() { user }: AuthRequest,
     @Body() body: UpdateInfoBodyDto,
   ) {
-    return await this.meService.updateMyInfo(req.user, body);
+    return await this.meService.updateMyInfo(user, body);
   }
 }

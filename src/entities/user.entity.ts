@@ -3,16 +3,23 @@ import {
   Cascade,
   Collection,
   Entity,
-  OneToMany, OneToOne,
+  OneToMany,
+  OneToOne,
   PrimaryKey,
-  Property
-} from "@mikro-orm/core";
+  Property,
+} from '@mikro-orm/core';
 import { Oauth } from './oauth.entity';
 import { History } from './history.entity';
 import { CommonForm } from './common-form.entity';
 
 @Entity()
 export class User {
+  constructor(userId?: bigint) {
+    if (userId) {
+      this.id = userId;
+    }
+  }
+
   @PrimaryKey({
     type: new BigIntType('bigint'),
   })

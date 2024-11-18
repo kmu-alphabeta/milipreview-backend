@@ -1,9 +1,6 @@
-import { ApiProperty } from "@nestjs/swagger";
-
+import { ApiProperty } from '@nestjs/swagger';
 
 export class HistoryCreateDto {
-  @ApiProperty()
-  userId: bigint;
   @ApiProperty()
   score: number;
   @ApiProperty()

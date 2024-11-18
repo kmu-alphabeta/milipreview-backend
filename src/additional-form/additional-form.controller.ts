@@ -1,11 +1,12 @@
-import { Controller, Get, Param } from "@nestjs/common";
-import { AdditionalFormService } from "./additional-form.service";
-import { ApiProperty, ApiResponse } from "@nestjs/swagger";
-import { MilitaryTypeEnum } from "./enums/military.type.enum";
-import { AirForceTypeEnum } from "./enums/air-force/air-force.type.enum";
-import { ArmyTypeEnum } from "./enums/army/army.type.enum";
-import { NavyTypeEnum } from "./enums/navy/navy.type.enum";
-import { MarineCorpsTypeEnum } from "./enums/marine-corps/marine-corps.type.enum";
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { AdditionalFormService } from './additional-form.service';
+import { ApiProperty, ApiResponse } from '@nestjs/swagger';
+import { MilitaryTypeEnum } from './enums/military.type.enum';
+import { AirForceTypeEnum } from './enums/air-force/air-force.type.enum';
+import { ArmyTypeEnum } from './enums/army/army.type.enum';
+import { NavyTypeEnum } from './enums/navy/navy.type.enum';
+import { MarineCorpsTypeEnum } from './enums/marine-corps/marine-corps.type.enum';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 export class MilitaryTypeResponseDto {
   @ApiProperty({ enum: MilitaryTypeEnum, description: '군종' })
@@ -32,7 +33,7 @@ export class MarineCorpsTypeResponseDto {
   type: MarineCorpsTypeEnum;
 }
 
-
+@UseGuards(AuthGuard)
 @Controller('additional-form')
 export class AdditionalFormController {
   constructor(private readonly additionalFormService: AdditionalFormService) {}
@@ -49,7 +50,11 @@ export class AdditionalFormController {
 
   // 각 모집단위별 종류 가져오기 (육군, 해군, 공군, 해병대)
   @ApiResponse({
-    type: ArmyTypeResponseDto || NavyTypeResponseDto || AirForceTypeResponseDto || MarineCorpsTypeResponseDto,
+    type:
+      ArmyTypeResponseDto ||
+      NavyTypeResponseDto ||
+      AirForceTypeResponseDto ||
+      MarineCorpsTypeResponseDto,
     description: '군종 타입 리스트',
   })
   @Get('types/:military')
@@ -68,6 +73,9 @@ export class AdditionalFormController {
     @Param('military') military: string,
     @Param('subtype') subtype: string,
   ) {
-    return this.additionalFormService.findAdditionalForm(military.toUpperCase(), subtype.toUpperCase());
+    return this.additionalFormService.findAdditionalForm(
+      military.toUpperCase(),
+      subtype.toUpperCase(),
+    );
   }
 }
