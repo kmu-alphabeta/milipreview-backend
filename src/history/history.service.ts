@@ -1,9 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { EntityManager } from '@mikro-orm/core';
+import { Injectable } from '@nestjs/common';
 import { History } from '../entities/history.entity';
-import { User } from '../entities/user.entity';
 import { HistoryCreateDto } from './dto/history-create.dto';
-import { HistoryResponseDto } from './dto/history-response.dto';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
 
