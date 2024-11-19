@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 import { LoginBodyDto, LoginResponseDto } from './dtos/login.dto';
 import { AuthRequest, RegisterAuthGuard } from './auth.guard';
 import { RegisterBodyDto, RegisterResponseDto } from './dtos/register.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse } from "@nestjs/swagger";
 
 @Controller('auth')
 export class AuthController {
@@ -30,6 +30,7 @@ export class AuthController {
   })
   @UseGuards(RegisterAuthGuard)
   @Post('register')
+  @ApiBearerAuth()
   async register(
     @Request() { user }: AuthRequest,
     @Body() body: RegisterBodyDto,

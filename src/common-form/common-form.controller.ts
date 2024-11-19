@@ -16,14 +16,14 @@ import { CommonForm } from '../entities/common-form.entity';
 import { AuthGuard, AuthRequest } from 'src/auth/auth.guard';
 
 @UseGuards(AuthGuard)
-@ApiBearerAuth()
+// @ApiBearerAuth()
 @Controller('common-form')
 export class CommonFormController {
   constructor(private readonly commonFormService: CommonFormService) {}
 
-  @ApiResponse({
-    type: BigInt,
-  })
+  // @ApiResponse({
+  //   type: BigInt,
+  // })
   @Post()
   async create(
     @Request() { user }: AuthRequest,
@@ -32,9 +32,9 @@ export class CommonFormController {
     await this.commonFormService.create(user.id, createCommonFormDto);
   }
 
-  @ApiResponse({
-    type: CommonForm,
-  })
+  // @ApiResponse({
+  //   type: CommonForm,
+  // })
   @Get()
   async findOne(@Request() { user }: AuthRequest): Promise<CommonForm> {
     return await this.commonFormService.findOne(user.id);

@@ -5,8 +5,7 @@ import { meHandler } from './me.handler';
 import { commonFormHandler } from './common-form.handler';
 
 export const mockServer = setupServer(
-  ...authHandler,
-  ...commonFormHandler,
+  // ...commonFormHandler,
   ...historyHandler,
   ...meHandler,
 );

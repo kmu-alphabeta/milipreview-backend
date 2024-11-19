@@ -1,6 +1,6 @@
 import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { AdditionalFormService } from './additional-form.service';
-import { ApiBearerAuth, ApiProperty, ApiResponse } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiProperty, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { MilitaryTypeEnum } from './enums/military.type.enum';
 import { AirForceTypeEnum } from './enums/air-force/air-force.type.enum';
 import { ArmyTypeEnum } from './enums/army/army.type.enum';
@@ -35,7 +35,8 @@ export class MarineCorpsTypeResponseDto {
 
 @UseGuards(AuthGuard)
 @ApiBearerAuth()
-@Controller('additional-form')
+@Controller('form')
+@ApiTags('Form')
 export class AdditionalFormController {
   constructor(private readonly additionalFormService: AdditionalFormService) {}
 

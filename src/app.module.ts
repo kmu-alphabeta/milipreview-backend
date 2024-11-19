@@ -17,7 +17,7 @@ import { PredictionModule } from './prediction/prediction.module';
     MikroOrmModule.forRoot(),
     PingModule,
     AuthModule,
-    CommonFormModule,
+    // CommonFormModule,
     AdditionalFormModule,
     MeModule,
     HistoryModule,
