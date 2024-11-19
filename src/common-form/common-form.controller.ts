@@ -28,8 +28,8 @@ export class CommonFormController {
   async create(
     @Request() { user }: AuthRequest,
     @Body() createCommonFormDto: CreateCommonFormDto,
-  ): Promise<bigint> {
-    return await this.commonFormService.create(user.id, createCommonFormDto);
+  ): Promise<void> {
+    await this.commonFormService.create(user.id, createCommonFormDto);
   }
 
   @ApiResponse({

@@ -44,7 +44,7 @@ export class AdditionalFormController {
     type: MilitaryTypeResponseDto,
     description: '군종 타입 리스트',
   })
-  @Get('types')
+  @Get()
   findTypes(): Record<string, string> {
     return this.additionalFormService.findTypes();
   }
@@ -58,7 +58,7 @@ export class AdditionalFormController {
       MarineCorpsTypeResponseDto,
     description: '군종 타입 리스트',
   })
-  @Get('types/:military')
+  @Get('/:military')
   findMilitaryTypes(
     @Param('military') military: string,
   ): Record<string, string> {
@@ -69,7 +69,7 @@ export class AdditionalFormController {
   @ApiResponse({
     description: 'Json 형태의 추가 서식',
   })
-  @Get('types/:military/:subtype')
+  @Get('/:military/:subtype')
   findAdditionalForm(
     @Param('military') military: string,
     @Param('subtype') subtype: string,
