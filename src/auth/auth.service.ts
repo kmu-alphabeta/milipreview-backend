@@ -1,5 +1,9 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { LoginQueryDto, LoginResponseDto } from './dtos/login.dto';
+import {
+  LoginBodyDto,
+  LoginProvider,
+  LoginResponseDto,
+} from './dtos/login.dto';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Oauth } from '../entities/oauth.entity';
 import { EntityRepository } from '@mikro-orm/postgresql';
@@ -7,10 +11,12 @@ import { JwtService } from '@nestjs/jwt';
 import { RegisterBodyDto, RegisterResponseDto } from './dtos/register.dto';
 import { AuthInfo, AuthRequest } from './auth.guard';
 import { User } from '../entities/user.entity';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
     @InjectRepository(Oauth)
     private readonly oauthRepository: EntityRepository<Oauth>,
@@ -22,44 +28,77 @@ export class AuthService {
     return await this.jwtService.signAsync(info);
   }
 
-  async login(query: LoginQueryDto): Promise<LoginResponseDto> {
-    if (query.error) {
-      throw new HttpException(query, 400);
+  private async kakaoLogin(code: string): Promise<string> {
+    // get access token with oauth token
+    let resp = await fetch('https://kauth.kakao.com/oauth/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+      body: new URLSearchParams({
+        grant_type: 'authorization_code',
+        client_id: this.configService.get<string>('KAKAO_REST_API_KEY'),
+        redirect_uri: this.configService.get<string>('KAKAO_REDIRECT_URI'),
+        code,
+      }),
+    });
+    let { access_token } = await resp.json();
+    if (!access_token) {
+      throw new HttpException('Unauthorized', 401);
     }
 
-    // TODO: validate code and get user oauth id (value)
-    let value = query.code;
-
-    let oauth = await this.oauthRepository.findOne({
-      type: query.type,
-      value,
+    // get user id with access token;
+    resp = await fetch('https://kapi.kakao.com/v2/user/me', {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
     });
+    let { id } = await resp.json();
+    if (!id) {
+      throw new HttpException('Unauthorized', 401);
+    }
+
+    return String(id);
+  }
+
+  async login(type: LoginProvider, code: string): Promise<LoginResponseDto> {
+    let value: string;
+
+    switch (type) {
+      case LoginProvider.KAKAO:
+        value = await this.kakaoLogin(code);
+        break;
+      default:
+        throw new HttpException('Not Implemented Login Method', 501);
+    }
+
+    let oauth = await this.oauthRepository.findOne({ type, value });
 
     return {
       token: await this.generateToken({
         id: oauth?.user.id ?? null,
-        type: query.type,
+        type,
         value,
       }),
     };
   }
 
   async register(
-    req: AuthRequest,
+    user: AuthInfo,
     body: RegisterBodyDto,
   ): Promise<RegisterResponseDto> {
     // TODO: transaction
     let id = await this.userRepository.insert(body);
     await this.oauthRepository.insert({
       user: id,
-      type: req.user.type,
-      value: req.user.value,
+      type: user.type,
+      value: user.value,
     });
     return {
       token: await this.generateToken({
         id,
-        type: req.user.type,
-        value: req.user.value,
+        type: user.type,
+        value: user.value,
       }),
     };
   }
