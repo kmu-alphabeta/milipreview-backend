@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import mock = jest.mock;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,6 +22,15 @@ async function bootstrap() {
   SwaggerModule.setup('api-docs', app, document);
 
   app.useGlobalPipes(new ValidationPipe());
+
+  // MSW 설정 (개발 환경에서만 실행)
+  if (process.env.NODE_ENV === 'development') {
+    import('./mock/index.handler').then(({ mockServer }) => {
+      mockServer.listen();
+      console.log('MSW is running in development mode');
+    });
+  }
+
   await app.listen(3000);
 }
 
