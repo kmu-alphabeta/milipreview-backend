@@ -3,16 +3,20 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
   Patch,
   Post,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 import { CommonFormService } from './common-form.service';
 import { CreateCommonFormDto } from './dto/create-common-form.dto';
 import { UpdateCommonFormDto } from './dto/update-common-form.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse } from "@nestjs/swagger";
 import { CommonForm } from '../entities/common-form.entity';
+import { AuthGuard, AuthRequest } from 'src/auth/auth.guard';
 
+@UseGuards(AuthGuard)
+@ApiBearerAuth()
 @Controller('common-form')
 export class CommonFormController {
   constructor(private readonly commonFormService: CommonFormService) {}
@@ -20,38 +24,32 @@ export class CommonFormController {
   @ApiResponse({
     type: BigInt,
   })
-  @Post(':id')
+  @Post()
   async create(
-    @Param('id') id: string,
+    @Request() { user }: AuthRequest,
     @Body() createCommonFormDto: CreateCommonFormDto,
   ): Promise<bigint> {
-    return await this.commonFormService.create(
-      BigInt(+id),
-      createCommonFormDto,
-    );
+    return await this.commonFormService.create(user.id, createCommonFormDto);
   }
 
   @ApiResponse({
     type: CommonForm,
   })
-  @Get(':id')
-  async findOne(@Param('id') id: string): Promise<CommonForm> {
-    return await this.commonFormService.findOne(BigInt(+id));
+  @Get()
+  async findOne(@Request() { user }: AuthRequest): Promise<CommonForm> {
+    return await this.commonFormService.findOne(user.id);
   }
 
-  @Patch(':id')
+  @Patch()
   async update(
-    @Param('id') id: string,
+    @Request() { user }: AuthRequest,
     @Body() updateCommonFormDto: UpdateCommonFormDto,
   ) {
-    return await this.commonFormService.update(
-      BigInt(+id),
-      updateCommonFormDto,
-    );
+    return await this.commonFormService.update(user.id, updateCommonFormDto);
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return await this.commonFormService.remove(BigInt(+id));
+  @Delete()
+  async remove(@Request() { user }: AuthRequest) {
+    return await this.commonFormService.remove(user.id);
   }
 }

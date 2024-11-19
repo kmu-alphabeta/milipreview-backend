@@ -36,14 +36,13 @@ describe('HistoryService', () => {
   describe('createHistory', () => {
     it('should create a history record', async () => {
       const dto: HistoryCreateDto = {
-        userId: 1n,
         score: 85,
         predictedScore: 90.5,
         predictedPercent: 92.3,
       };
 
       const mockUser = new User();
-      mockUser.id = dto.userId;
+      mockUser.id = 1n;
 
       const mockHistory = new History();
       mockHistory.id = 1n; // ID를 수동으로 설정
@@ -59,9 +58,9 @@ describe('HistoryService', () => {
         return history;
       });
 
-      const result = await service.createHistory(dto);
+      const result = await service.createHistory(1n, dto);
 
-      expect(em.findOne).toHaveBeenCalledWith(User, { id: dto.userId });
+      expect(em.findOne).toHaveBeenCalledWith(User, { id: 1n });
       expect(em.persistAndFlush).toHaveBeenCalledWith(expect.any(History));
       expect(result).toEqual({
         id: mockHistory.id,
@@ -75,7 +74,6 @@ describe('HistoryService', () => {
 
     it('should throw NotFoundException if user is not found', async () => {
       const dto: HistoryCreateDto = {
-        userId: 1n,
         score: 85,
         predictedScore: 90.5,
         predictedPercent: 92.3,
@@ -83,8 +81,8 @@ describe('HistoryService', () => {
 
       (em.findOne as jest.Mock).mockResolvedValue(null);
 
-      await expect(service.createHistory(dto)).rejects.toThrow(NotFoundException);
-      expect(em.findOne).toHaveBeenCalledWith(User, { id: dto.userId });
+      await expect(service.createHistory(1n, dto)).rejects.toThrow(NotFoundException);
+      expect(em.findOne).toHaveBeenCalledWith(User, { id: 1n });
     });
   });
 

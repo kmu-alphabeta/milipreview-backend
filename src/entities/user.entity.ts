@@ -16,6 +16,12 @@ import { Exclude, instanceToPlain } from 'class-transformer';
 
 @Entity()
 export class User {
+  constructor(userId?: bigint) {
+    if (userId) {
+      this.id = userId;
+    }
+  }
+
   toJSON() {
     return instanceToPlain(this);
   }
