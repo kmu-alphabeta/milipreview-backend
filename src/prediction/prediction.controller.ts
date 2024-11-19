@@ -2,10 +2,11 @@ import { Controller, Post, Body, UseGuards } from '@nestjs/common';
 import { PredictionService } from './prediction.service';
 import { PredictionRequestDto } from './dto/prediction-request.dto';
 import { PredictionResponseDto } from './dto/prediction-response.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse } from "@nestjs/swagger";
 import { AuthGuard } from 'src/auth/auth.guard';
 
 @UseGuards(AuthGuard)
+@ApiBearerAuth()
 @Controller('prediction')
 export class PredictionController {
   constructor(private readonly predictionService: PredictionService) {}

@@ -9,10 +9,11 @@ import {
 import { AuthGuard, AuthRequest } from '../auth/auth.guard';
 import { MeService } from './me.service';
 import { UpdateInfoBodyDto } from './dtos/update.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse } from "@nestjs/swagger";
 import { User } from '../entities/user.entity';
 
 @UseGuards(AuthGuard)
+@ApiBearerAuth()
 @Controller('me')
 export class MeController {
   constructor(private readonly meService: MeService) {}

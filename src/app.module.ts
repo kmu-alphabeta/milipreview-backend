@@ -8,8 +8,6 @@ import { AdditionalFormModule } from './additional-form/additional-form.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { MeModule } from './me/me.module';
-import { HistoryController } from './history/history.controller';
-import { HistoryService } from './history/history.service';
 import { HistoryModule } from './history/history.module';
 import { PredictionModule } from './prediction/prediction.module';
 
@@ -25,7 +23,7 @@ import { PredictionModule } from './prediction/prediction.module';
     HistoryModule,
     PredictionModule,
   ],
-  controllers: [AppController, HistoryController],
-  providers: [AppService, HistoryService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

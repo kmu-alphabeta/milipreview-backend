@@ -11,11 +11,12 @@ import {
 import { CommonFormService } from './common-form.service';
 import { CreateCommonFormDto } from './dto/create-common-form.dto';
 import { UpdateCommonFormDto } from './dto/update-common-form.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse } from "@nestjs/swagger";
 import { CommonForm } from '../entities/common-form.entity';
 import { AuthGuard, AuthRequest } from 'src/auth/auth.guard';
 
 @UseGuards(AuthGuard)
+@ApiBearerAuth()
 @Controller('common-form')
 export class CommonFormController {
   constructor(private readonly commonFormService: CommonFormService) {}

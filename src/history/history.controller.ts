@@ -8,11 +8,12 @@ import {
 } from '@nestjs/common';
 import { HistoryService } from './history.service';
 import { HistoryCreateDto } from './dto/history-create.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse } from "@nestjs/swagger";
 import { AuthGuard, AuthRequest } from 'src/auth/auth.guard';
 import { History } from 'src/entities/history.entity';
 
 @UseGuards(AuthGuard)
+@ApiBearerAuth()
 @Controller('history')
 export class HistoryController {
   constructor(private readonly historyService: HistoryService) {}
