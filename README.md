@@ -1,85 +1,120 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Milipreview Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+군 입대 지원자를 위한 예측 및 평가를 제공하는 백엔드 시스템입니다. [NestJS](https://nestjs.com/) 기반으로 개발되었으며, 확장성과 유지보수를 고려한 설계를 목표로 합니다.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 🚀 프로젝트 소개
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+**Milipreview Backend**는 군사 관련 지원자 데이터를 분석하여 예측 결과를 생성하고 관리하는 백엔드 시스템입니다. RESTful API를 통해 다양한 기능을 제공합니다.
 
-## Project setup
+---
 
-```bash
-$ npm install
-```
+## 주요 기능
 
-## Compile and run the project
+- **지원자 데이터 관리**
+    
+    지원자의 데이터를 생성, 조회, 수정, 삭제하는 기능.
+    
+- **예측 모델 호출 및 결과 반환**
+    
+    외부 예측 모델과 통신하여 결과를 제공.
+    
+- **예측 기록 조회 및 생성**
+    
+    지원자의 예측 기록을 저장하고 관리.
+    
+- **인증 및 사용자 관리**
+    
+    JWT 기반 인증 및 권한 부여 기능.
+    
 
-```bash
-# development
-$ npm run start
+---
 
-# watch mode
-$ npm run start:dev
+## 🛠 기술 스택
 
-# production mode
-$ npm run start:prod
-```
+- **프레임워크**: [NestJS](https://nestjs.com/)
+- **언어**: TypeScript
+- **데이터베이스**: PostgreSQL
+- **API**: RESTful API
+- **배포 환경**: AWS (EC2, RDS, S3)
+- **테스트**: Jest (유닛 및 통합 테스트)
 
-## Run tests
+---
+
+## 📂 디렉토리 구조
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+src/
+├── additional-form       # 추가 양식 처리
+├── all-form              # 모든 양식 관리
+├── auth                  # 사용자 인증 및 권한 관리
+├── common-form           # 공통 DTO 및 로직
+├── entities              # 데이터베이스 엔티티 정의
+├── history               # 예측 기록 관리
+└── main.ts               # 애플리케이션 진입점
 ```
 
-## Resources
+---
 
-Check out a few resources that may come in handy when working with NestJS:
+## 💻 설치 및 실행 방법
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### 로컬 개발 환경 설정
 
-## Support
+### 1. 레포지토리 클론
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+git clone https://github.com/kmu-alphabeta/milipreview-backend.git
+cd milipreview-backend
+```
 
-## Stay in touch
+### 2. 패키지 설치
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+npm install
+```
 
-## License
+### 3. 환경 변수 설정
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+프로젝트 루트에 `.env` 파일을 생성하고 다음 내용을 추가하세요:
+
+```makefile
+DATABASE_URL=your_database_url
+JWT_SECRET=your_secret_key
+AWS_S3_BUCKET=your_s3_bucket_name
+AWS_REGION=your_aws_region
+```
+
+---
+
+### 4. 애플리케이션 실행
+
+- 개발 모드
+    
+    ```bash
+    npm run start:dev
+    ```
+    
+- 프로덕션 모드
+    
+    ```bash
+    npm run start:prod
+    ```
+    
+
+### 테스트 실행
+
+```bash
+npm run test
+npm run test:e2e
+```
+
+---
+
+## 📑 API 문서
+
+API 문서는 Swagger를 통해 제공됩니다.
+
+애플리케이션 실행 후 http://localhost:3000/api로 접근하세요.
+
+---
