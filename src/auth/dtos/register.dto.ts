@@ -35,10 +35,12 @@ export class RegisterBodyDto {
 
   @IsNotEmpty()
   @IsString()
+  @ApiProperty()
   militaryServiceOffice: string;
 
   @IsNotEmpty()
   @IsString()
+  @ApiProperty()
   applicantRegionOffice: string;
 }
 
