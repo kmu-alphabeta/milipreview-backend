@@ -9,6 +9,7 @@ import { User } from '../entities/user.entity';
 
 @Module({
   imports: [
+    ConfigModule,
     JwtModule.registerAsync({
       global: true,
       imports: [ConfigModule],
@@ -20,7 +21,7 @@ import { User } from '../entities/user.entity';
     }),
     MikroOrmModule.forFeature([Oauth, User]),
   ],
-  providers: [AuthService],
+  providers: [AuthService, ConfigService],
   controllers: [AuthController],
 })
 export class AuthModule {}
