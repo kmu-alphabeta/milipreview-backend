@@ -18,7 +18,7 @@ import { User } from '../entities/user.entity';
 export class MeController {
   constructor(private readonly meService: MeService) {}
   @ApiResponse({
-    status: 201,
+    status: 200,
     type: User,
   })
   @Get()

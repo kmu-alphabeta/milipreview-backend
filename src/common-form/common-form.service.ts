@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateCommonFormDto } from './dto/create-common-form.dto';
 import { UpdateCommonFormDto } from './dto/update-common-form.dto';
 import { CommonForm } from '../entities/common-form.entity';
@@ -16,8 +16,8 @@ export class CommonFormService {
   async create(
     id: bigint,
     createCommonFormDto: CreateCommonFormDto,
-  ): Promise<bigint> {
-    return await this.commonFormRepository.insert(
+  ): Promise<void> {
+    await this.commonFormRepository.insert(
       new CommonForm(new User(id), createCommonFormDto),
     );
   }

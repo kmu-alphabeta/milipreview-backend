@@ -21,6 +21,15 @@ async function bootstrap() {
   SwaggerModule.setup('api-docs', app, document);
 
   app.useGlobalPipes(new ValidationPipe());
+
+  // MSW 설정 (개발 환경에서만 실행)
+  if (process.env.NODE_ENV === 'development') {
+    import('./mock/index.handler').then(({ mockServer }) => {
+      mockServer.listen();
+      console.log('MSW is running in development mode');
+    });
+  }
+
   await app.listen(3000);
 }
 
