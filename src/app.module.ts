@@ -7,7 +7,6 @@ import { CommonFormModule } from './common-form/common-form.module';
 import { AdditionalFormModule } from './additional-form/additional-form.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
-import { MeModule } from './me/me.module';
 import { HistoryModule } from './history/history.module';
 import { PredictionModule } from './prediction/prediction.module';
 
@@ -19,7 +18,6 @@ import { PredictionModule } from './prediction/prediction.module';
     AuthModule,
     // CommonFormModule,
     AdditionalFormModule,
-    MeModule,
     HistoryModule,
     PredictionModule,
   ],

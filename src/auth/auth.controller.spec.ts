@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { RegisterAuthGuard } from './auth.guard';
 import { JwtService } from '@nestjs/jwt';
 
 describe('AuthController', () => {
@@ -23,12 +22,6 @@ describe('AuthController', () => {
           useValue: {
             sign: jest.fn(),
             verify: jest.fn(),
-          },
-        },
-        {
-          provide: RegisterAuthGuard,
-          useValue: {
-            canActivate: jest.fn(),
           },
         },
       ],

@@ -51,10 +51,3 @@ export class AuthGuard implements CanActivate {
     return type === 'Bearer' ? token : undefined;
   }
 }
-
-@Injectable()
-export class RegisterAuthGuard extends AuthGuard {
-  validate(obj: any) {
-    if (obj.id) throw new UnauthorizedException();
-  }
-}
