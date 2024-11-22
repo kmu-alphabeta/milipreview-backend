@@ -1,16 +1,9 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Request,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { HistoryService } from './history.service';
 import { HistoryCreateDto } from './dto/history-create.dto';
-import { ApiBearerAuth, ApiResponse } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard, AuthRequest } from 'src/auth/auth.guard';
-import { History } from 'src/entities/history.entity';
+import { HistoryResponseDto } from './dto/history-response.dto';
 
 @UseGuards(AuthGuard)
 @ApiBearerAuth()
@@ -32,12 +25,12 @@ export class HistoryController {
 
   // 예측 히스토리 조회
   @ApiResponse({
-    type: [History],
+    type: [HistoryResponseDto],
   })
   @Get()
   async getHistoryByUserId(
     @Request() { user }: AuthRequest,
-  ): Promise<History[]> {
+  ): Promise<HistoryResponseDto[]> {
     return await this.historyService.getHistoryByUserId(user.id);
   }
 }
