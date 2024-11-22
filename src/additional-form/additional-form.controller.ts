@@ -1,12 +1,18 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AdditionalFormService } from './additional-form.service';
-import { ApiBearerAuth, ApiProperty, ApiResponse, ApiTags } from "@nestjs/swagger";
+import {
+  ApiBearerAuth,
+  ApiProperty,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { MilitaryTypeEnum } from './enums/military.type.enum';
 import { AirForceTypeEnum } from './enums/air-force/air-force.type.enum';
 import { ArmyTypeEnum } from './enums/army/army.type.enum';
 import { NavyTypeEnum } from './enums/navy/navy.type.enum';
 import { MarineCorpsTypeEnum } from './enums/marine-corps/marine-corps.type.enum';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { CalculateBodyDto } from './dtos/calculate';
 
 export class MilitaryTypeResponseDto {
   @ApiProperty({ enum: MilitaryTypeEnum, description: '군종' })
@@ -79,5 +85,10 @@ export class AdditionalFormController {
       military.toUpperCase(),
       subtype.toUpperCase(),
     );
+  }
+
+  @Post('/calculate')
+  calculate(@Body() { form }: CalculateBodyDto) {
+    return this.additionalFormService.calculate(form);
   }
 }

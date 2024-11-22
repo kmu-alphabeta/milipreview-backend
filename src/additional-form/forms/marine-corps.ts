@@ -122,6 +122,13 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
       {
         name: '질병치료',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
@@ -130,6 +137,13 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
       {
         name: '유공자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
@@ -138,6 +152,13 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
       {
         name: '국외이주자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
@@ -146,6 +167,13 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
       {
         name: '다자녀',
         type: 'radio',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           '3명이상': 4,
           '2명': 2,
@@ -155,6 +183,13 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
       {
         name: '생계급여수급권자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
@@ -163,6 +198,18 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
       {
         name: '봉사활동',
         type: 'radio',
+        group: [
+          {
+            name: '봉사/헌혈',
+            priority: 1,
+            limit: 8,
+          },
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           '64시간이상': 8,
           '56시간이상': 7,
@@ -178,6 +225,18 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
       {
         name: '헌혈',
         type: 'radio',
+        group: [
+          {
+            name: '봉사/헌혈',
+            priority: 1,
+            limit: 8,
+          },
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           '8회이상': 8,
           '7회': 7,
@@ -195,6 +254,13 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
             {
               name: '무도유단자',
               type: 'radio',
+              group: [
+                {
+                  name: '가산점',
+                  priority: 2,
+                  limit: 15,
+                },
+              ],
               score: {
                 '3단이상': 5,
                 '1단이상': 2,
@@ -204,6 +270,13 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
             {
               name: '수상인명구조자격증',
               type: 'yesno',
+              group: [
+                {
+                  name: '가산점',
+                  priority: 2,
+                  limit: 15,
+                },
+              ],
               score: {
                 yes: 2,
                 no: 0,
@@ -214,6 +287,13 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
             {
               name: '스키강사자격증',
               type: 'yesno',
+              group: [
+                {
+                  name: '가산점',
+                  priority: 2,
+                  limit: 15,
+                },
+              ],
               score: {
                 yes: 10,
                 no: 0,
@@ -222,6 +302,13 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
             {
               name: '스킨스쿠버자격증',
               type: 'yesno',
+              group: [
+                {
+                  name: '가산점',
+                  priority: 2,
+                  limit: 15,
+                },
+              ],
               score: {
                 yes: 10,
                 no: 0,
@@ -230,6 +317,13 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
             {
               name: '수영강사자격증',
               type: 'yesno',
+              group: [
+                {
+                  name: '가산점',
+                  priority: 2,
+                  limit: 15,
+                },
+              ],
               score: {
                 yes: 10,
                 no: 0,
@@ -238,6 +332,13 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
             {
               name: '무도유단자',
               type: 'radio',
+              group: [
+                {
+                  name: '가산점',
+                  priority: 2,
+                  limit: 15,
+                },
+              ],
               score: {
                 '3단이상': 5,
                 '1단이상': 2,
@@ -247,6 +348,13 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
             {
               name: '수상인명구조자격증',
               type: 'yesno',
+              group: [
+                {
+                  name: '가산점',
+                  priority: 2,
+                  limit: 15,
+                },
+              ],
               score: {
                 yes: 5,
                 no: 0,
@@ -256,6 +364,13 @@ export const getMarineCorpsForm = (detail: MarineCorpsTypeEnum) => {
       {
         name: '추천특기지원자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 1,
           no: 0,

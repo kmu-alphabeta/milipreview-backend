@@ -1,6 +1,7 @@
 import { ArmyTypeEnum } from '../enums/army/army.type.enum';
+import { Form } from '../interface/form';
 
-export const getArmyForm = (detail: ArmyTypeEnum) => {
+export const getArmyForm = (detail: ArmyTypeEnum): Form => {
   return {
     militaryType: `육군/${detail}`,
     form: [
@@ -80,6 +81,13 @@ export const getArmyForm = (detail: ArmyTypeEnum) => {
       {
         name: '경력',
         type: 'radio',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           '2년이상': 3,
           '1년이상': 2,
@@ -90,6 +98,13 @@ export const getArmyForm = (detail: ArmyTypeEnum) => {
       {
         name: '추천특기지원자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 1,
           no: 0,
@@ -98,6 +113,13 @@ export const getArmyForm = (detail: ArmyTypeEnum) => {
       {
         name: '유공자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
@@ -106,6 +128,13 @@ export const getArmyForm = (detail: ArmyTypeEnum) => {
       {
         name: '다자녀',
         type: 'radio',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           '3명이상': 4,
           '2명': 2,
@@ -115,6 +144,13 @@ export const getArmyForm = (detail: ArmyTypeEnum) => {
       {
         name: '생계급여수급권자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
@@ -123,6 +159,18 @@ export const getArmyForm = (detail: ArmyTypeEnum) => {
       {
         name: '봉사활동',
         type: 'radio',
+        group: [
+          {
+            name: '봉사/헌혈',
+            priority: 1,
+            limit: 8,
+          },
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           '64시간이상': 8,
           '56시간이상': 7,
@@ -138,6 +186,18 @@ export const getArmyForm = (detail: ArmyTypeEnum) => {
       {
         name: '헌혈',
         type: 'radio',
+        group: [
+          {
+            name: '봉사/헌혈',
+            priority: 1,
+            limit: 8,
+          },
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           '8회이상': 8,
           '7회': 7,
@@ -153,6 +213,13 @@ export const getArmyForm = (detail: ArmyTypeEnum) => {
       {
         name: '질병치료',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
@@ -161,11 +228,37 @@ export const getArmyForm = (detail: ArmyTypeEnum) => {
       {
         name: '국외이주자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
         },
       },
+      ...(detail === ArmyTypeEnum.TRANSPORTATION_OPERATION_VEHICLE_DRIVING
+        ? [
+            {
+              name: '군운전적성정밀검사 합격자',
+              type: 'yesno',
+              group: [
+                {
+                  name: '가산점',
+                  priority: 2,
+                  limit: 15,
+                },
+              ],
+              score: {
+                yes: 4,
+                no: 0,
+              },
+            },
+          ]
+        : []),
     ],
   };
 };

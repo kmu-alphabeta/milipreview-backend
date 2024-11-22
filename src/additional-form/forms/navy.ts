@@ -82,6 +82,13 @@ export const getNavyForm = (detail: NavyTypeEnum) => {
       {
         name: '유공자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
@@ -90,6 +97,13 @@ export const getNavyForm = (detail: NavyTypeEnum) => {
       {
         name: '질병치료',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
@@ -98,6 +112,13 @@ export const getNavyForm = (detail: NavyTypeEnum) => {
       {
         name: '국외이주자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
@@ -106,6 +127,13 @@ export const getNavyForm = (detail: NavyTypeEnum) => {
       {
         name: '다자녀',
         type: 'radio',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           '3명이상': 4,
           '2명': 2,
@@ -115,6 +143,13 @@ export const getNavyForm = (detail: NavyTypeEnum) => {
       {
         name: '생계급여수급권자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
@@ -123,6 +158,18 @@ export const getNavyForm = (detail: NavyTypeEnum) => {
       {
         name: '봉사활동',
         type: 'radio',
+        group: [
+          {
+            name: '봉사/헌혈',
+            priority: 1,
+            limit: 8,
+          },
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           '64시간이상': 8,
           '56시간이상': 7,
@@ -138,6 +185,18 @@ export const getNavyForm = (detail: NavyTypeEnum) => {
       {
         name: '헌혈',
         type: 'radio',
+        group: [
+          {
+            name: '봉사/헌혈',
+            priority: 1,
+            limit: 8,
+          },
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           '8회이상': 8,
           '7회': 7,
@@ -153,6 +212,13 @@ export const getNavyForm = (detail: NavyTypeEnum) => {
       {
         name: '수영관련자격증',
         type: 'radio',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           잠수기능사: 5,
           수상안전강사: 5,
@@ -165,6 +231,13 @@ export const getNavyForm = (detail: NavyTypeEnum) => {
             {
               name: '건설기계(중장비)운전자격증',
               type: 'yesno',
+              group: [
+                {
+                  name: '가산점',
+                  priority: 2,
+                  limit: 15,
+                },
+              ],
               score: {
                 yes: 2.5,
                 no: 0,
@@ -175,6 +248,13 @@ export const getNavyForm = (detail: NavyTypeEnum) => {
       {
         name: '추천특기지원자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 1,
           no: 0,
