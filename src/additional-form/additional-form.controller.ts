@@ -11,8 +11,10 @@ import { AirForceTypeEnum } from './enums/air-force/air-force.type.enum';
 import { ArmyTypeEnum } from './enums/army/army.type.enum';
 import { NavyTypeEnum } from './enums/navy/navy.type.enum';
 import { MarineCorpsTypeEnum } from './enums/marine-corps/marine-corps.type.enum';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 import { CalculateBodyDto } from './dtos/calculate';
+import { PredictionService } from '../prediction/prediction.service';
+import { PredictionRequestDto } from '../prediction/dto/prediction-request.dto';
 
 export class MilitaryTypeResponseDto {
   @ApiProperty({ enum: MilitaryTypeEnum, description: '군종' })
@@ -44,7 +46,10 @@ export class MarineCorpsTypeResponseDto {
 @Controller('form')
 @ApiTags('Form')
 export class AdditionalFormController {
-  constructor(private readonly additionalFormService: AdditionalFormService) {}
+  constructor(
+    private readonly additionalFormService: AdditionalFormService,
+    private readonly predictionService: PredictionService,
+  ) {}
 
   // 모집단위 종류 가져오기 (military.type.enum.ts 활용)
   @ApiResponse({
@@ -103,7 +108,43 @@ export class AdditionalFormController {
   }
 
   @Post('/calculate')
-  calculate(@Body() { form }: CalculateBodyDto) {
-    return this.additionalFormService.calculate(form);
+  calculate(
+  @Param('military') military: string,
+  @Param('subtype') subtype: string,
+  @Body() { form }: CalculateBodyDto,
+  ) {
+
+  const militaryTypes = this.additionalFormService.findTypes();
+
+  const militaryType = military.toUpperCase();
+  if (!militaryTypes[militaryType]) {
+    throw new Error(`Invalid military type: ${militaryType}`);
   }
+
+  const subtypes = this.additionalFormService.findMilitaryTypes(militaryType);
+
+  const subtypeEnum = subtypes[subtype.toUpperCase()];
+  if (!subtypeEnum) {
+    throw new Error(
+      `Invalid subtype for military type ${militaryType}: ${subtype}`,
+    );
+  }
+
+  const finalScore = this.additionalFormService.calculate(form);
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+
+  const category = `${militaryTypes[militaryType]}/${subtypeEnum}`;
+
+  const predictionDto: PredictionRequestDto = {
+    year,
+    month,
+    category,
+    score: finalScore,
+  };
+
+  return this.predictionService.predict(predictionDto);
+}
 }
