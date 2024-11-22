@@ -1,14 +1,14 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PingModule } from './ping/ping.module';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { CommonFormModule } from './common-form/common-form.module';
 import { AdditionalFormModule } from './additional-form/additional-form.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { HistoryModule } from './history/history.module';
 import { PredictionModule } from './prediction/prediction.module';
+import { LoggerMiddleware } from './logger.middleware';
 
 @Module({
   imports: [
@@ -24,4 +24,8 @@ import { PredictionModule } from './prediction/prediction.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}
