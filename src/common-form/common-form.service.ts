@@ -17,9 +17,10 @@ export class CommonFormService {
     id: bigint,
     createCommonFormDto: CreateCommonFormDto,
   ): Promise<void> {
-    await this.commonFormRepository.insert(
-      new CommonForm(new User(id), createCommonFormDto),
-    );
+    await this.commonFormRepository.insert({
+      ...createCommonFormDto,
+      user: id,
+    });
   }
 
   async findOne(id: bigint): Promise<CommonForm> {

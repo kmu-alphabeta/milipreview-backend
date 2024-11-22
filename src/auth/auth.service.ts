@@ -68,15 +68,20 @@ export class AuthService {
     }
 
     let oauth = await this.oauthRepository.findOne({ type, value });
+    let id = oauth?.user.id;
 
-    if (!oauth) {
-      oauth = new Oauth(await this.userRepository.insert({}), type, value);
-      await this.oauthRepository.insert(oauth);
+    if (!id) {
+      id = await this.userRepository.insert({});
+      await this.oauthRepository.insert({
+        user: id,
+        type,
+        value,
+      });
     }
 
     return {
       token: await this.generateToken({
-        id: oauth.user.id ?? null,
+        id,
         type,
         value,
       }),

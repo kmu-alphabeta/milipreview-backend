@@ -11,12 +11,6 @@ import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class Oauth {
-  constructor(userId: bigint, type: string, value: string) {
-    this.user = new User(userId);
-    this.type = type;
-    this.value = value;
-  }
-
   toJSON() {
     return instanceToPlain(this);
   }
