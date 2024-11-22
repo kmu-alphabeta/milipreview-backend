@@ -12,16 +12,19 @@ import { Type } from 'class-transformer';
 export class RequestFormGroup {
   @IsNotEmpty()
   @IsString()
+  @ApiProperty()
   name: string;
 
   @IsNotEmpty()
   @IsNumber()
   @Type(() => Number)
+  @ApiProperty()
   priority: number;
 
   @IsNotEmpty()
   @IsNumber()
   @Type(() => Number)
+  @ApiProperty()
   limit: number;
 }
 
@@ -30,10 +33,12 @@ export class RequestFormDetail {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => RequestFormGroup)
+  @ApiProperty({ type: [RequestFormGroup] })
   group?: RequestFormGroup[];
 
   @IsNumber()
   @Type(() => Number)
+  @ApiProperty()
   score: number;
 }
 
@@ -42,6 +47,7 @@ export class CalculateBodyDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => RequestFormDetail)
+  @ApiProperty({ type: [RequestFormDetail] })
   form: RequestFormDetail[];
 }
 

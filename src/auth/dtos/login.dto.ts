@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsString, ValidateIf } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export enum LoginProvider {
@@ -7,18 +7,18 @@ export enum LoginProvider {
 
 export class LoginBodyDto {
   @IsEnum(LoginProvider)
-  @ApiProperty()
+  @ApiProperty({ example: 'kakao' })
   type: LoginProvider;
 
   @IsNotEmpty()
   @IsString()
-  @ApiProperty()
+  @ApiProperty({description: 'Kakao OAuth code 값'})
   code?: string;
 }
 
 export class LoginResponseDto {
   @IsNotEmpty()
   @IsString()
-  @ApiProperty()
+  @ApiProperty({ example: 'Authorization 토큰 값' })
   token: string;
 }

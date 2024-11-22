@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AdditionalFormService } from './additional-form.service';
 import {
-  ApiBearerAuth,
+  ApiBearerAuth, ApiParam,
   ApiProperty,
   ApiResponse,
   ApiTags,
@@ -63,7 +63,12 @@ export class AdditionalFormController {
       NavyTypeResponseDto ||
       AirForceTypeResponseDto ||
       MarineCorpsTypeResponseDto,
-    description: '군종 타입 리스트',
+    description: '군종 타입(모집단위) 리스트',
+  })
+  @ApiParam({
+    name: 'military',
+    description: '군 종류 (예: ARMY, NAVY, AIR_FORCE, MARINE_CORPS)',
+    example: 'ARMY',
   })
   @Get('/:military')
   findMilitaryTypes(
@@ -75,6 +80,16 @@ export class AdditionalFormController {
   // 군종별 + 모집단위별 추가 서식 가져오기
   @ApiResponse({
     description: 'Json 형태의 추가 서식',
+  })
+  @ApiParam({
+    name: 'military',
+    description: '군 종류 (예: ARMY, NAVY, AIR_FORCE, MARINE_CORPS)',
+    example: 'ARMY',
+  })
+  @ApiParam({
+    name: 'subtype',
+    description: '군 세부 모집단위 종류',
+    example: 'GENERAL',
   })
   @Get('/:military/:subtype')
   findAdditionalForm(
