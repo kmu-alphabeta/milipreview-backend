@@ -3,6 +3,8 @@ import { ApiProperty } from '@nestjs/swagger';
 export class HistoryResponseDto {
   @ApiProperty({ description: '예측 히스토리 ID' })
   id: bigint;
+  @ApiProperty({ description: '모집 단위 이름' })
+  category: string;
   @ApiProperty({ description: '유저의 점수' })
   score: number;
   @ApiProperty({ description: '예측한 합격컷' })

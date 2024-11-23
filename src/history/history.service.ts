@@ -37,6 +37,7 @@ export class HistoryService {
         probability: history.probability,
         isPassed: history.score >= history.predictedCutoff,
         timestamp: moment(history.timestamp).tz('Asia/Seoul').format('YYYY-MM-DD HH:mm'),
+        category: history.category,
       };
     });
   }

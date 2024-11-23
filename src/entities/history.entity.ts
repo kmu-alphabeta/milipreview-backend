@@ -49,4 +49,10 @@ export class History {
   })
   timestamp!: Date;
 
+  @ApiProperty({ description: '모집 단위 이름' })
+  @Property({
+    type: 'string',
+  })
+  category: string;
+
 }
