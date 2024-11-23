@@ -35,11 +35,24 @@ export class History {
   @Property({
     type: 'real',
   })
-  predictedScore!: number;
+  predictedCutoff!: number;
 
   @ApiProperty()
   @Property({
     type: 'real',
   })
-  predictedPercent!: number;
+  probability!: number;
+
+  @ApiProperty()
+  @Property({
+    type: 'timestamptz',
+  })
+  timestamp!: Date;
+
+  @ApiProperty({ description: '모집 단위 이름' })
+  @Property({
+    type: 'string',
+  })
+  category: string;
+
 }

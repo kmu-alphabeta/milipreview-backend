@@ -1,6 +1,7 @@
 import { AirForceTypeEnum } from '../enums/air-force/air-force.type.enum';
+import { Form } from '../interface/form';
 
-export const getAirForceForm = (detail: AirForceTypeEnum) => {
+export const getAirForceForm = (detail: AirForceTypeEnum): Form => {
   return {
     militaryType: `공군/${detail}`,
     form: [
@@ -82,6 +83,13 @@ export const getAirForceForm = (detail: AirForceTypeEnum) => {
       {
         name: '유공자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
@@ -90,6 +98,13 @@ export const getAirForceForm = (detail: AirForceTypeEnum) => {
       {
         name: '질병치료',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
@@ -98,6 +113,13 @@ export const getAirForceForm = (detail: AirForceTypeEnum) => {
       {
         name: '국외이주자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
@@ -106,6 +128,13 @@ export const getAirForceForm = (detail: AirForceTypeEnum) => {
       {
         name: '다자녀',
         type: 'radio',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           '3명이상': 4,
           '2명': 2,
@@ -115,6 +144,13 @@ export const getAirForceForm = (detail: AirForceTypeEnum) => {
       {
         name: '생계급여수급권자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 4,
           no: 0,
@@ -123,6 +159,18 @@ export const getAirForceForm = (detail: AirForceTypeEnum) => {
       {
         name: '봉사활동',
         type: 'radio',
+        group: [
+          {
+            name: '봉사/헌혈',
+            priority: 1,
+            limit: 8,
+          },
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           '64시간이상': 8,
           '56시간이상': 7,
@@ -138,6 +186,18 @@ export const getAirForceForm = (detail: AirForceTypeEnum) => {
       {
         name: '헌혈',
         type: 'radio',
+        group: [
+          {
+            name: '봉사/헌혈',
+            priority: 1,
+            limit: 8,
+          },
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           '8회이상': 8,
           '7회': 7,
@@ -155,6 +215,13 @@ export const getAirForceForm = (detail: AirForceTypeEnum) => {
             {
               name: '지정특기(방공포,군사경찰,조리) 가산점',
               type: 'yesno',
+              group: [
+                {
+                  name: '가산점',
+                  priority: 2,
+                  limit: 15,
+                },
+              ],
               score: {
                 yes: 4,
                 no: 0,
@@ -167,6 +234,13 @@ export const getAirForceForm = (detail: AirForceTypeEnum) => {
             {
               name: '운전면허소지자 2종보통이상(오토제외)',
               type: 'yesno',
+              group: [
+                {
+                  name: '가산점',
+                  priority: 2,
+                  limit: 15,
+                },
+              ],
               score: {
                 yes: 4,
                 no: 0,
@@ -179,6 +253,13 @@ export const getAirForceForm = (detail: AirForceTypeEnum) => {
             {
               name: '항공정비사/항공정비기초인력인증서',
               type: 'yesno',
+              group: [
+                {
+                  name: '가산점',
+                  priority: 2,
+                  limit: 15,
+                },
+              ],
               score: {
                 yes: 4,
                 no: 0,
@@ -189,6 +270,13 @@ export const getAirForceForm = (detail: AirForceTypeEnum) => {
       {
         name: '추천특기지원자',
         type: 'yesno',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           yes: 1,
           no: 0,
@@ -197,6 +285,13 @@ export const getAirForceForm = (detail: AirForceTypeEnum) => {
       {
         name: '한국사능력검정 (국가편찬위원회:4년, KBS: 2년)',
         type: 'radio',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           '1,2급': 2,
           '3,4급': 1,
@@ -206,6 +301,13 @@ export const getAirForceForm = (detail: AirForceTypeEnum) => {
       {
         name: '공인영어성적(2년)',
         type: 'radio',
+        group: [
+          {
+            name: '가산점',
+            priority: 2,
+            limit: 15,
+          },
+        ],
         score: {
           'TOEIC 730점이상': 2,
           'TOEIC 520점이상': 1,

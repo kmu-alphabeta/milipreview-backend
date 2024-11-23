@@ -15,5 +15,6 @@ import { PredictionService } from './prediction.service';
       inject: [ConfigService],
     },
   ],
+  exports: [PredictionService],
 })
 export class PredictionModule {}

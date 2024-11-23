@@ -1,15 +1,10 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import {
-  LoginBodyDto,
-  LoginProvider,
-  LoginResponseDto,
-} from './dtos/login.dto';
+import { LoginProvider, LoginResponseDto } from './dtos/login.dto';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Oauth } from '../entities/oauth.entity';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { JwtService } from '@nestjs/jwt';
-import { RegisterBodyDto, RegisterResponseDto } from './dtos/register.dto';
-import { AuthInfo, AuthRequest } from './auth.guard';
+import { AuthInfo } from './auth.guard';
 import { User } from '../entities/user.entity';
 import { ConfigService } from '@nestjs/config';
 
@@ -73,32 +68,22 @@ export class AuthService {
     }
 
     let oauth = await this.oauthRepository.findOne({ type, value });
+    let id = oauth?.user.id;
 
-    return {
-      token: await this.generateToken({
-        id: oauth?.user.id ?? null,
+    if (!id) {
+      id = await this.userRepository.insert({});
+      await this.oauthRepository.insert({
+        user: id,
         type,
         value,
-      }),
-    };
-  }
+      });
+    }
 
-  async register(
-    user: AuthInfo,
-    body: RegisterBodyDto,
-  ): Promise<RegisterResponseDto> {
-    // TODO: transaction
-    let id = await this.userRepository.insert(body);
-    await this.oauthRepository.insert({
-      user: id,
-      type: user.type,
-      value: user.value,
-    });
     return {
       token: await this.generateToken({
         id,
-        type: user.type,
-        value: user.value,
+        type,
+        value,
       }),
     };
   }

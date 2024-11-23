@@ -8,5 +8,6 @@ import { History } from '../entities/history.entity';
   imports: [MikroOrmModule.forFeature([History])],
   controllers: [HistoryController],
   providers: [HistoryService],
+  exports: [HistoryService],
 })
 export class HistoryModule {}

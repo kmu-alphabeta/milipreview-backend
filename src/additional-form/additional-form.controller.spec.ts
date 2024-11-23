@@ -6,6 +6,7 @@ import { MarineCorpsTypeEnum } from './enums/marine-corps/marine-corps.type.enum
 import { NavyTypeEnum } from './enums/navy/navy.type.enum';
 import { AirForceTypeEnum } from './enums/air-force/air-force.type.enum';
 import { ArmyTypeEnum } from './enums/army/army.type.enum';
+import { PredictionService } from '../prediction/prediction.service';
 
 describe('AdditionalFormController', () => {
   let controller: AdditionalFormController;
@@ -151,5 +152,89 @@ describe('AdditionalFormController', () => {
       expect(error).toBeInstanceOf(Error);
       expect(error.message).toBe('Invalid military type: TEST TEST');
     }
+  });
+});
+
+
+describe('AdditionalFormService - calculate and prediction integration', () => {
+  let service: AdditionalFormService;
+  let predictionService: PredictionService;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        AdditionalFormService,
+        {
+          provide: PredictionService,
+          useValue: {
+            predict: jest.fn().mockReturnValue({
+              success: true,
+              predictedScore: 85,
+              result: '합격',
+            }),
+          },
+        },
+      ],
+    }).compile();
+
+    service = module.get<AdditionalFormService>(AdditionalFormService);
+    predictionService = module.get<PredictionService>(PredictionService);
+  });
+
+  it('should calculate score and make a prediction', () => {
+    // Mock 데이터
+    const mockForm = [
+      {
+        group: [{ name: 'Group1', priority: 1, limit: 50 }],
+        score: 40,
+      },
+    ];
+
+    const predictionDto = {
+      year: 2024,
+      month: 11,
+      category: 'ARMY/Field Construction',
+      score: 40, // 계산된 점수
+    };
+
+    const calculatedScore = service.calculate(mockForm);
+    expect(calculatedScore).toBe(40); // 점수가 올바르게 계산되었는지 확인
+
+    // PredictionService.predict 호출
+    const predictionResult = predictionService.predict(predictionDto);
+    expect(predictionService.predict).toHaveBeenCalledWith(predictionDto); // PredictionService에 전달된 데이터 확인
+    expect(predictionResult).toEqual({
+      success: true,
+      predictedScore: 85,
+      result: '합격',
+    }); // Prediction 결과 확인
+  });
+
+  it('should cap the score before making a prediction', () => {
+    // Mock 데이터 (점수가 제한을 초과)
+    const mockForm = [
+      {
+        group: [{ name: 'Group1', priority: 1, limit: 30 }],
+        score: 50,
+      },
+    ];
+
+    const predictionDto = {
+      year: 2024,
+      month: 11,
+      category: 'ARMY/Field Construction',
+      score: 30, // 제한된 점수
+    };
+
+    const calculatedScore = service.calculate(mockForm);
+    expect(calculatedScore).toBe(30); // 제한된 점수 확인
+
+    const predictionResult = predictionService.predict(predictionDto);
+    expect(predictionService.predict).toHaveBeenCalledWith(predictionDto); // PredictionService에 전달된 데이터 확인
+    expect(predictionResult).toEqual({
+      success: true,
+      predictedScore: 85,
+      result: '합격',
+    }); // Prediction 결과 확인
   });
 });

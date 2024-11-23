@@ -6,7 +6,6 @@ import {
   OneToMany,
   OneToOne,
   PrimaryKey,
-  Property,
 } from '@mikro-orm/core';
 import { Oauth } from './oauth.entity';
 import { History } from './history.entity';
@@ -16,12 +15,6 @@ import { Exclude, instanceToPlain } from 'class-transformer';
 
 @Entity()
 export class User {
-  constructor(userId?: bigint) {
-    if (userId) {
-      this.id = userId;
-    }
-  }
-
   toJSON() {
     return instanceToPlain(this);
   }
@@ -31,54 +24,6 @@ export class User {
     type: new BigIntType('bigint'),
   })
   id!: bigint;
-
-  @ApiProperty()
-  @Property({
-    type: 'text',
-  })
-  name!: string;
-
-  @ApiProperty()
-  @Property({
-    type: 'text',
-  })
-  narasarang!: string;
-
-  @ApiProperty()
-  @Property({
-    type: 'text',
-  })
-  email!: string;
-
-  @ApiProperty()
-  @Property({
-    type: 'text',
-  })
-  address!: string;
-
-  @ApiProperty()
-  @Property({
-    type: 'text',
-  })
-  birth!: string;
-
-  @ApiProperty()
-  @Property({
-    type: 'text',
-  })
-  phone!: string;
-
-  @ApiProperty()
-  @Property({
-    type: 'text',
-  })
-  militaryServiceOffice!: string;
-
-  @ApiProperty()
-  @Property({
-    type: 'text',
-  })
-  applicantRegionOffice!: string;
 
   @Exclude({ toPlainOnly: true })
   @OneToOne(() => Oauth, (attr) => attr.user, { cascade: [Cascade.ALL] })

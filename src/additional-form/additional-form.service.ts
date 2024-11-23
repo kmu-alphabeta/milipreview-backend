@@ -8,6 +8,7 @@ import { getArmyForm } from './forms/army';
 import { getNavyForm } from './forms/navy';
 import { getMarineCorpsForm } from './forms/marine-corps';
 import { getAirForceForm } from './forms/air-force';
+import { RequestFormDetail, RequestFormGroup } from './dtos/calculate';
 
 @Injectable()
 export class AdditionalFormService {
@@ -47,6 +48,40 @@ export class AdditionalFormService {
       default:
         throw new Error(`Invalid military type: ${military} ${detail}`);
     }
+  }
+
+  calculate(form: RequestFormDetail[]): number {
+    let group: RequestFormGroup[] = [];
+    let groupMap: Record<string, RequestFormDetail[]> = {};
+    for (let f of form) {
+      for (let g of f.group) {
+        if (!groupMap[g.name]) {
+          groupMap[g.name] = [];
+          group.push(g);
+        }
+        groupMap[g.name].push(f);
+      }
+    }
+    group.sort((a, b) => a.priority - b.priority);
+
+    for (let g of group) {
+      let remain = g.limit;
+      for (let f of groupMap[g.name]) {
+        if (f.score > remain) {
+          f.score = remain;
+          remain = 0;
+        } else {
+          remain -= f.score;
+        }
+      }
+    }
+
+    let final = 0;
+    for (let f of form) {
+      final += f.score;
+    }
+
+    return final;
   }
 
   private getEntriesToRecord(o: any) {

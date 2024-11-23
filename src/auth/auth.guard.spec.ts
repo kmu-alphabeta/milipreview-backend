@@ -1,12 +1,11 @@
 import { JwtModule, JwtService } from '@nestjs/jwt';
-import { AuthGuard, RegisterAuthGuard } from './auth.guard';
+import { AuthGuard } from './auth.guard';
 import { Test } from '@nestjs/testing';
 import { UnauthorizedException } from '@nestjs/common';
 
 describe('Guard', () => {
   let jwtService: JwtService;
   let authGuard: AuthGuard;
-  let registerAuthGuard: RegisterAuthGuard;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
@@ -23,9 +22,7 @@ describe('Guard', () => {
 
   it('should be defined', () => {
     authGuard = new AuthGuard(jwtService);
-    registerAuthGuard = new RegisterAuthGuard(jwtService);
     expect(authGuard).toBeDefined();
-    expect(registerAuthGuard).toBeDefined();
   });
 
   it('should handle not registered user', async () => {
@@ -42,9 +39,6 @@ describe('Guard', () => {
     };
 
     expect(authGuard.canActivate(notRegistered as any)).rejects.toThrow();
-    expect(registerAuthGuard.canActivate(notRegistered as any)).resolves.toBe(
-      true,
-    );
   });
 
   it('should handle registered user', async () => {
@@ -61,6 +55,5 @@ describe('Guard', () => {
     };
 
     expect(authGuard.canActivate(registered as any)).resolves.toBe(true);
-    expect(registerAuthGuard.canActivate(registered as any)).rejects.toThrow();
   });
 });
