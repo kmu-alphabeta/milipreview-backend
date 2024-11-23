@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class HistoryResponseDto {
-  @ApiProperty()
+  @ApiProperty({ description: '예측 히스토리 ID' })
   id: bigint;
   @ApiProperty({ description: '유저의 점수' })
   score: number;

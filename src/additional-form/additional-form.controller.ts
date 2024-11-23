@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AdditionalFormService } from './additional-form.service';
 import {
-  ApiBearerAuth, ApiParam,
+  ApiBearerAuth, ApiOperation, ApiParam,
   ApiProperty,
   ApiResponse,
   ApiTags,
@@ -52,6 +52,7 @@ export class AdditionalFormController {
   ) {}
 
   // 모집단위 종류 가져오기 (military.type.enum.ts 활용)
+  @ApiOperation({ description: '군종 타입 가져오기; 앞으로의 요청에는 key 사용하면 됨.'})
   @ApiResponse({
     type: MilitaryTypeResponseDto,
     description: '군종 타입 리스트',
@@ -62,6 +63,7 @@ export class AdditionalFormController {
   }
 
   // 각 모집단위별 종류 가져오기 (육군, 해군, 공군, 해병대)
+  @ApiOperation({ description: '군종별 세부 모집단위 가져오기; 앞으로의 요청에는 key 사용하면 됨.'})
   @ApiResponse({
     type:
       ArmyTypeResponseDto ||
@@ -83,6 +85,7 @@ export class AdditionalFormController {
   }
 
   // 군종별 + 모집단위별 추가 서식 가져오기
+  @ApiOperation({ description: '모집단위별 입력서식 Json 가져오기.'})
   @ApiResponse({
     description: 'Json 형태의 추가 서식',
   })
@@ -107,6 +110,7 @@ export class AdditionalFormController {
     );
   }
 
+  @ApiOperation({ description: '점수 계산하기; 이후 자동으로 예측 및 히스토리 생성까지 진행됨'})
   @Post('/calculate')
   calculate(
   @Param('military') military: string,
