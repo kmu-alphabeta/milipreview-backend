@@ -1,6 +1,21 @@
-import { Body, Controller, Get, Param, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { AdditionalFormService } from './additional-form.service';
-import { ApiBearerAuth, ApiOperation, ApiParam, ApiProperty, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiProperty,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { MilitaryTypeEnum } from './enums/military.type.enum';
 import { AirForceTypeEnum } from './enums/air-force/air-force.type.enum';
 import { ArmyTypeEnum } from './enums/army/army.type.enum';
@@ -46,11 +61,12 @@ export class AdditionalFormController {
     private readonly additionalFormService: AdditionalFormService,
     private readonly predictionService: PredictionService,
     private readonly historyService: HistoryService,
-  ) {
-  }
+  ) {}
 
   // 모집단위 종류 가져오기 (military.type.enum.ts 활용)
-  @ApiOperation({ description: '군종 타입 가져오기; 앞으로의 요청에는 key 사용하면 됨.' })
+  @ApiOperation({
+    description: '군종 타입 가져오기; 앞으로의 요청에는 key 사용하면 됨.',
+  })
   @ApiResponse({
     type: MilitaryTypeResponseDto,
     description: '군종 타입 리스트',
@@ -61,7 +77,10 @@ export class AdditionalFormController {
   }
 
   // 각 모집단위별 종류 가져오기 (육군, 해군, 공군, 해병대)
-  @ApiOperation({ description: '군종별 세부 모집단위 가져오기; 앞으로의 요청에는 key 사용하면 됨.' })
+  @ApiOperation({
+    description:
+      '군종별 세부 모집단위 가져오기; 앞으로의 요청에는 key 사용하면 됨.',
+  })
   @ApiResponse({
     type:
       ArmyTypeResponseDto ||
@@ -108,15 +127,17 @@ export class AdditionalFormController {
     );
   }
 
-  @ApiOperation({ description: '점수 계산하기; 이후 자동으로 예측 및 히스토리 생성까지 진행됨' })
-  @Post('/calculate')
+  @ApiOperation({
+    description:
+      '점수 계산하기; 이후 자동으로 예측 및 히스토리 생성까지 진행됨',
+  })
+  @Post('/calculate/:military/:subtype')
   calculate(
     @Request() { user }: AuthRequest,
     @Param('military') military: string,
     @Param('subtype') subtype: string,
     @Body() { form }: CalculateBodyDto,
   ) {
-
     const militaryTypes = this.additionalFormService.findTypes();
 
     const militaryType = military.toUpperCase();
