@@ -131,6 +131,16 @@ export class AdditionalFormController {
     description:
       '점수 계산하기; 이후 자동으로 예측 및 히스토리 생성까지 진행됨',
   })
+  @ApiParam({
+    name: 'military',
+    description: '군 종류 (예: ARMY, NAVY, AIR_FORCE, MARINE_CORPS)',
+    example: 'ARMY',
+  })
+  @ApiParam({
+    name: 'subtype',
+    description: '군 세부 모집단위 종류',
+    example: 'GENERAL',
+  })
   @Post('/calculate/:military/:subtype')
   calculate(
     @Request() { user }: AuthRequest,
