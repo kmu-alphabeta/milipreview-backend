@@ -54,6 +54,8 @@ export class AdditionalFormService {
     let group: RequestFormGroup[] = [];
     let groupMap: Record<string, RequestFormDetail[]> = {};
     for (let f of form) {
+      if (!f.group) continue;
+
       for (let g of f.group) {
         if (!groupMap[g.name]) {
           groupMap[g.name] = [];
