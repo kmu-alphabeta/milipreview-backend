@@ -26,6 +26,7 @@ export class AuthController {
   }
 
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @ApiResponse({
     type: User,
   })
