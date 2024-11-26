@@ -180,6 +180,7 @@ export class AdditionalFormController {
     };
 
     const responseDtoPromise = this.predictionService.predict(predictionDto);
+    
     responseDtoPromise.then((responseDto) => {
       this.historyService.createHistory(user.id, {
         score: finalScore,
