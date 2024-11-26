@@ -6,6 +6,7 @@ import {
   OneToMany,
   OneToOne,
   PrimaryKey,
+  Property,
 } from '@mikro-orm/core';
 import { Oauth } from './oauth.entity';
 import { History } from './history.entity';
@@ -24,6 +25,27 @@ export class User {
     type: new BigIntType('bigint'),
   })
   id!: bigint;
+
+  @ApiProperty()
+  @Property({
+    type: 'text',
+    nullable: true,
+  })
+  name?: string;
+
+  @ApiProperty()
+  @Property({
+    type: 'text',
+    nullable: true,
+  })
+  email?: string;
+
+  @ApiProperty()
+  @Property({
+    type: 'text',
+    nullable: true,
+  })
+  img?: string;
 
   @Exclude({ toPlainOnly: true })
   @OneToOne(() => Oauth, (attr) => attr.user, { cascade: [Cascade.ALL] })

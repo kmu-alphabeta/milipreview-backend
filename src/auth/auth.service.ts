@@ -7,6 +7,8 @@ import { JwtService } from '@nestjs/jwt';
 import { AuthInfo } from './auth.guard';
 import { User } from '../entities/user.entity';
 import { ConfigService } from '@nestjs/config';
+import { KakaoResponse } from './interfaces/kakao';
+import { LoginReturn } from './interfaces/login';
 
 @Injectable()
 export class AuthService {
@@ -23,7 +25,7 @@ export class AuthService {
     return await this.jwtService.signAsync(info);
   }
 
-  private async kakaoLogin(code: string): Promise<string> {
+  private async kakaoLogin(code: string): Promise<LoginReturn> {
     // get access token with oauth token
     let resp = await fetch('https://kauth.kakao.com/oauth/token', {
       method: 'POST',
@@ -48,43 +50,71 @@ export class AuthService {
         Authorization: `Bearer ${access_token}`,
       },
     });
-    let { id } = await resp.json();
+    let json = (await resp.json()) as KakaoResponse;
+    let { id, kakao_account } = json;
     if (!id) {
       throw new HttpException('Unauthorized', 401);
     }
 
-    return String(id);
+    let { profile } = kakao_account;
+    return {
+      type: LoginProvider.KAKAO,
+      value: id.toString(),
+      name: profile.nickname,
+      email: kakao_account.email,
+      img: profile.thumbnail_image_url,
+    };
   }
 
   async login(type: LoginProvider, code: string): Promise<LoginResponseDto> {
-    let value: string;
+    let loginReturn: LoginReturn;
 
     switch (type) {
       case LoginProvider.KAKAO:
-        value = await this.kakaoLogin(code);
+        loginReturn = await this.kakaoLogin(code);
         break;
       default:
         throw new HttpException('Not Implemented Login Method', 501);
     }
 
-    let oauth = await this.oauthRepository.findOne({ type, value });
+    let oauth = await this.oauthRepository.findOne({
+      type: loginReturn.type,
+      value: loginReturn.value,
+    });
     let id = oauth?.user.id;
 
     if (!id) {
-      id = await this.userRepository.insert({});
+      id = await this.userRepository.insert({
+        name: loginReturn.name,
+        email: loginReturn.email,
+        img: loginReturn.img,
+      });
       await this.oauthRepository.insert({
         user: id,
-        type,
-        value,
+        type: loginReturn.type,
+        value: loginReturn.value,
       });
+    } else {
+      await this.userRepository.nativeUpdate(
+        { id },
+        {
+          name: loginReturn.name,
+          email: loginReturn.email,
+          img: loginReturn.img,
+        },
+      );
     }
 
     return {
       token: await this.generateToken({
         id,
-        type,
-        value,
+        type: loginReturn.type,
+        value: loginReturn.value,
       }),
     };
+  }
+
+  async me(user: AuthInfo): Promise<User> {
+    return await this.userRepository.findOneOrFail(user.id);
   }
 }
