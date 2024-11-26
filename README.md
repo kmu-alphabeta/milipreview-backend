@@ -52,6 +52,8 @@ src/
 ├── common-form           # 공통 DTO 및 로직
 ├── entities              # 데이터베이스 엔티티 정의
 ├── history               # 예측 기록 관리
+├── mock                  # 테스트용 더미 데이터 정의
+├── ping                  # 헬스 체크용 엔드포인트 정의
 └── main.ts               # 애플리케이션 진입점
 ```
 
@@ -79,10 +81,15 @@ npm install
 프로젝트 루트에 `.env` 파일을 생성하고 다음 내용을 추가하세요:
 
 ```makefile
-DATABASE_URL=your_database_url
-JWT_SECRET=your_secret_key
-AWS_S3_BUCKET=your_s3_bucket_name
-AWS_REGION=your_aws_region
+POSTGRES_HOST=your_postgres_host
+POSTGRES_PORT=your_postgres_port
+POSTGRES_NAME=your_postgres_name
+POSTGRES_USER=your_postgres_user
+POSTGRES_PASS=your_postgres_password
+MODEL_URL=your_model_endpoint_url
+JWT_SECRET=your_any_secret_code
+KAKAO_REST_API_KEY=your_kakao_rest_key
+KAKAO_REDIRECT_URI=your_kakao_redirect_uri
 ```
 
 ---
@@ -115,6 +122,6 @@ npm run test:e2e
 
 API 문서는 Swagger를 통해 제공됩니다.
 
-애플리케이션 실행 후 http://localhost:3000/api로 접근하세요.
+애플리케이션 실행 후 http://localhost:3000/api-docs 로 접근하세요.
 
 ---
