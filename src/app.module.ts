@@ -10,6 +10,7 @@ import { HistoryModule } from './history/history.module';
 import { PredictionModule } from './prediction/prediction.module';
 import { LoggerMiddleware } from './logger.middleware';
 import { PostModule } from './post/post.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { PostModule } from './post/post.module';
     HistoryModule,
     PredictionModule,
     PostModule,
+    CommentModule
   ],
   controllers: [AppController],
   providers: [AppService],
