@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { HistoryModule } from './history/history.module';
 import { PredictionModule } from './prediction/prediction.module';
 import { LoggerMiddleware } from './logger.middleware';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { LoggerMiddleware } from './logger.middleware';
     AdditionalFormModule,
     HistoryModule,
     PredictionModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],
