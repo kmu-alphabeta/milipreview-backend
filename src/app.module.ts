@@ -11,6 +11,7 @@ import { PredictionModule } from './prediction/prediction.module';
 import { LoggerMiddleware } from './logger.middleware';
 import { PostModule } from './post/post.module';
 import { CommentModule } from './comment/comment.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { CommentModule } from './comment/comment.module';
     HistoryModule,
     PredictionModule,
     PostModule,
-    CommentModule
+    CommentModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],
