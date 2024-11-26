@@ -11,7 +11,7 @@ import { AuthGuard } from 'src/auth/auth.guard';
 export class PredictionController {
   constructor(private readonly predictionService: PredictionService) {}
 
-  @ApiOperation({ description: '유저 점수 예측; 테스트 전용. `/form/calculate` 호출 시 자동으로 진행됨', deprecated: true })
+  @ApiOperation({ description: '유저 점수 예측; 테스트 전용.', deprecated: true })
   @ApiResponse({
     status: 201,
     type: PredictionResponseDto,
