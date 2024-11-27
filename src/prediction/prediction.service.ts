@@ -9,7 +9,7 @@ import { AxiosResponse } from 'axios';
 export class PredictionService {
   constructor(private readonly httpService: HttpService) {}
 
-  private readonly modelUrl = 'http://127.0.0.1:8000/model'; // Django 서버 URL
+  private readonly modelUrl = 'http://127.0.0.1:8000/models'; // Django 서버 URL
 
   async predict(dto: PredictionRequestDto): Promise<PredictionResponseDto> {
     console.log('Prediction request DTO:', JSON.stringify(dto)); // 요청 데이터 로깅
