@@ -142,54 +142,77 @@ export class AdditionalFormController {
     example: 'GENERAL',
   })
   @Post('/calculate/:military/:subtype')
-  calculate(
-    @Request() { user }: AuthRequest,
-    @Param('military') military: string,
-    @Param('subtype') subtype: string,
-    @Body() { form }: CalculateBodyDto,
-  ) {
-    const militaryTypes = this.additionalFormService.findTypes();
+calculate(
+  @Request() { user }: AuthRequest,
+  @Param('military') military: string,
+  @Param('subtype') subtype: string,
+  @Body() { form }: CalculateBodyDto,
+) {
+  // 군 종류와 하위 분류를 검증
+  const militaryTypes = this.additionalFormService.findTypes();
 
-    const militaryType = military.toUpperCase();
-    if (!militaryTypes[militaryType]) {
-      throw new Error(`Invalid military type: ${militaryType}`);
-    }
-
-    const subtypes = this.additionalFormService.findMilitaryTypes(militaryType);
-
-    const subtypeEnum = subtypes[subtype.toUpperCase()];
-    if (!subtypeEnum) {
-      throw new Error(
-        `Invalid subtype for military type ${militaryType}: ${subtype}`,
-      );
-    }
-
-    const finalScore = this.additionalFormService.calculate(form);
-
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth() + 1;
-
-    const category = `${militaryTypes[militaryType]}/${subtypeEnum}`;
-
-    const predictionDto: PredictionRequestDto = {
-      year,
-      month,
-      category,
-      score: finalScore,
-    };
-
-    const responseDtoPromise = this.predictionService.predict(predictionDto);
-    
-    responseDtoPromise.then((responseDto) => {
-      this.historyService.createHistory(user.id, {
-        score: finalScore,
-        predictedCutoff: responseDto.predictedCutoff,
-        probability: responseDto.probability,
-        category: predictionDto.category,
-      });
-    });
-
-    return responseDtoPromise;
+  const militaryType = military.toUpperCase();
+  if (!militaryTypes[militaryType]) {
+    throw new Error(`Invalid military type: ${militaryType}`);
   }
+
+  const subtypes = this.additionalFormService.findMilitaryTypes(militaryType);
+
+  const subtypeEnum = subtypes[subtype.toUpperCase()];
+  if (!subtypeEnum) {
+    throw new Error(
+      `Invalid subtype for military type ${militaryType}: ${subtype}`,
+    );
+  }
+
+  // 점수 계산
+  const finalScore = this.additionalFormService.calculate(form);
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+
+  const category = `${militaryTypes[militaryType]}/${subtypeEnum}`;
+
+  // 주석: 실제 predictionService 호출을 주석 처리하고 더미 데이터를 반환
+  /*
+  const predictionDto: PredictionRequestDto = {
+    year,
+    month,
+    category,
+    score: finalScore,
+  };
+
+  const responseDtoPromise = this.predictionService.predict(predictionDto);
+
+  responseDtoPromise.then((responseDto) => {
+    this.historyService.createHistory(user.id, {
+      score: finalScore,
+      predictedCutoff: responseDto.predictedCutoff,
+      probability: responseDto.probability,
+      category: predictionDto.category,
+    });
+  });
+
+  return responseDtoPromise;
+  */
+
+  // 더미 데이터를 반환
+  const dummyResponse = {
+    predictedCutoff: 85,
+    isPassed: true,
+    probability: 70,
+  };
+
+  // 히스토리 저장 (실제 구현과 동일하게 처리)
+  this.historyService.createHistory(user.id, {
+    score: finalScore,
+    predictedCutoff: dummyResponse.predictedCutoff,
+    probability: dummyResponse.probability,
+    category,
+  });
+
+  return dummyResponse;
+}
+
 }
